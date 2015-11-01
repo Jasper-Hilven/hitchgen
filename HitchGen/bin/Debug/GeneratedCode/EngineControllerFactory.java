@@ -7,4 +7,8 @@ public class EngineControllerFactory {
 
   }
 
+  public EngineController CreateEngineController(){
+    return new EngineController();
+  }
+
 }

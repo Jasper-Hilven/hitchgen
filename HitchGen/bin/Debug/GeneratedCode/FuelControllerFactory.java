@@ -7,4 +7,8 @@ public class FuelControllerFactory {
 
   }
 
+  public FuelController CreateFuelController(){
+    return new FuelController();
+  }
+
 }

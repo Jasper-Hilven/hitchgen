@@ -7,4 +7,8 @@ public class GyroControllerFactory {
 
   }
 
+  public GyroController CreateGyroController(){
+    return new GyroController();
+  }
+
 }

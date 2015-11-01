@@ -7,4 +7,8 @@ public class UIControllerFactory {
 
   }
 
+  public UIController CreateUIController(){
+    return new UIController();
+  }
+
 }

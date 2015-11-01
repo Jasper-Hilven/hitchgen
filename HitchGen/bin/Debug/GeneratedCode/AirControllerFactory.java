@@ -7,4 +7,8 @@ public class AirControllerFactory {
 
   }
 
+  public AirController CreateAirController(){
+    return new AirController();
+  }
+
 }

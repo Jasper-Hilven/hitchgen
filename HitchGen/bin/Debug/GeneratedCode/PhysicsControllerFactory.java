@@ -7,4 +7,8 @@ public class PhysicsControllerFactory {
 
   }
 
+  public PhysicsController CreatePhysicsController(){
+    return new PhysicsController();
+  }
+
 }

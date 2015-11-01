@@ -7,4 +7,8 @@ public class ElectroControllerFactory {
 
   }
 
+  public ElectroController CreateElectroController(){
+    return new ElectroController();
+  }
+
 }
