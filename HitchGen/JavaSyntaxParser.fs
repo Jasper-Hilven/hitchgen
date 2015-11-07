@@ -5,29 +5,32 @@ type JType = string
 type JVariable ={vName : string; vType : JType}
 let CreateJVariable(vName,vType) = {vName = vName; vType =vType}
 let GetTypeString(controllerName:string) = controllerName
+let GetListTypeOf(elementType:string) = "ArrayList<" + elementType + ">"
 ///EXPRESSION
-let GetFieldExpression(fieldName:string) = "    this." + fieldName
+let GetLocalFieldExpression(fieldName:string) = "this." + fieldName
 
 ////STATEMENT
+let GetExpressionEvaluation(expression: string) = "    " + expression + ";"
 let GetAssignment(AssignTo : string, valueToAssign : string) = "    " + AssignTo + "= " + valueToAssign + ";" 
 let GetDeclAssignment(AssignTo : JVariable, valueToAssign : string) = GetAssignment(AssignTo.vType + " " + AssignTo.vName,valueToAssign)
 let returnStatement(returningValue: string) = "    return " + returningValue + ";"
 
 //////FIELD
-let GetFieldDeclaration(typeString,nameString) = "  " + typeString + " " + nameString + ";"
+let GetFieldDeclaration(typeString,nameString) = "  public " + typeString + " " + nameString + ";"
 
 let GetFieldName(controllerName:string) = if controllerName.Length.Equals(0) then controllerName else controllerName.Substring(0,1).ToLower()+ controllerName.Substring(1)
 
-let GetFieldAssignment(fieldName:string,fieldValue:string) = GetAssignment(GetFieldExpression(fieldName),fieldValue)
-let GetFieldDeclarations childrenNames = childrenNames |> Seq.map (
+let GetFieldAssignment(fieldName:string,fieldValue:string) = GetAssignment(GetLocalFieldExpression(fieldName),fieldValue)
+let GetFieldDeclarations(childrenNames) = childrenNames |> Seq.map (
     fun childName -> 
       let childFieldName = GetFieldName(childName)
       let childType = GetTypeString(childName)
       GetFieldDeclaration(childType,childFieldName))
+
 //VARIABLES
 let GetVariableDeclarationAssignment(toCreate : JVariable, assignedValue : string) = "    " + toCreate.vType + " "+ toCreate.vName + "= " + assignedValue + ";"
 //METHODCALL
-
+let GetAccessField(owner:string, fieldName:string) =""+ owner + "." + fieldName
 let GetParameterDescriptions(variables: string seq) = 
   let variableText = variables |> Seq.toList 
   if(variableText.Length > 0 ) then variableText |> Seq.reduce(fun x y -> x + ", " + y) else ""

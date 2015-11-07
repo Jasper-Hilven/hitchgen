@@ -13,6 +13,6 @@ C:\Data\projects\dotnet\Visual Studio 2012\Projects\HitchGen\HitchGen\bin\Debug\
 C:\Data\projects\dotnet\Visual Studio 2012\Projects\HitchGen\HitchGen\bin\Debug\HitchGen.pdb
 C:\Data\projects\dotnet\Visual Studio 2012\Projects\HitchGen\HitchGen\bin\Debug\FSharp.Core.dll
 C:\Data\projects\dotnet\Visual Studio 2012\Projects\HitchGen\HitchGen\bin\Debug\FSharp.Core.xml
-C:\Data\projects\dotnet\Visual Studio 2012\Projects\HitchGen\HitchGen\obj\Debug\HitchGen.fsprojResolveAssemblyReference.cache
 C:\Data\projects\dotnet\Visual Studio 2012\Projects\HitchGen\HitchGen\obj\Debug\HitchGen.exe
 C:\Data\projects\dotnet\Visual Studio 2012\Projects\HitchGen\HitchGen\obj\Debug\HitchGen.pdb
+C:\Data\projects\dotnet\Visual Studio 2012\Projects\HitchGen\HitchGen\obj\Debug\HitchGen.fsprojResolveAssemblyReference.cache

@@ -59,7 +59,34 @@
 <member name="">
 
 </member>
+<member name="T:GenerateBasics">
+
+</member>
 <member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="T:GenerateFactories">
 
 </member>
 <member name="">
@@ -119,7 +146,25 @@
 <member name="">
 
 </member>
-<member name="M:JavaSyntaxParser.GetFieldExpression(System.String)">
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="M:JavaSyntaxParser.GetLocalFieldExpression(System.String)">
 <summary>
 EXPRESSION
 </summary>
@@ -130,22 +175,10 @@ EXPRESSION
 <member name="">
 
 </member>
+<member name="">
+
+</member>
 <member name="T:JavaSyntaxParser">
-
-</member>
-<member name="">
-
-</member>
-<member name="">
-
-</member>
-<member name="">
-
-</member>
-<member name="">
-
-</member>
-<member name="">
 
 </member>
 <member name="">
