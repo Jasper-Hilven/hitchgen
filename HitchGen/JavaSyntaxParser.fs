@@ -3,9 +3,14 @@
 //////TYPES
 type JType = string
 type JVariable ={vName : string; vType : JType}
+type JVariableRef=  string
 let CreateJVariable(vName,vType) = {vName = vName; vType =vType}
 let GetTypeString(controllerName:string) = controllerName
-let GetListTypeOf(elementType:string) = "ArrayList<" + elementType + ">"
+let GetListTypeOf(elementType:JType) = "ArrayList<" + elementType + ">"
+let GetMapTypeOf(keyType:JType,valueType:JType) = "HashMap<" + keyType + ", " + valueType + ">"
+let GetVoidType() = "void"
+let GetIntType() = "int"
+let GetBoxedIntType()= "Integer"
 ///EXPRESSION
 let GetLocalFieldExpression(fieldName:string) = "this." + fieldName
 
@@ -14,7 +19,8 @@ let GetExpressionEvaluation(expression: string) = "    " + expression + ";"
 let GetAssignment(AssignTo : string, valueToAssign : string) = "    " + AssignTo + "= " + valueToAssign + ";" 
 let GetDeclAssignment(AssignTo : JVariable, valueToAssign : string) = GetAssignment(AssignTo.vType + " " + AssignTo.vName,valueToAssign)
 let returnStatement(returningValue: string) = "    return " + returningValue + ";"
-
+let GetForeach(iterateElement:JVariable,collection : JVariableRef,innerExpression :string list) = 
+  ["    for(" + iterateElement.vType + " " + iterateElement.vName + " : " + collection + "){"] @ (innerExpression |> List.map(fun x -> "  "+ x)) @["    }"] 
 //////FIELD
 let GetFieldDeclaration(typeString,nameString) = "  public " + typeString + " " + nameString + ";"
 

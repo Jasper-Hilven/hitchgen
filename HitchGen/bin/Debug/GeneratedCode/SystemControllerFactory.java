@@ -7,6 +7,7 @@ public class SystemControllerFactory {
   public ElectroControllerFactory electroControllerFactory;
   public AirControllerFactory airControllerFactory;
   public ArrayList<SystemController> constructedChildren;
+  public HashMap<SystemController, Integer> ChildToNumber;
 
   public SystemControllerFactory(engineControllerFactory, gyroControllerFactory, fuelControllerFactory, electroControllerFactory, airControllerFactory){
 
@@ -17,6 +18,20 @@ public class SystemControllerFactory {
     this.airControllerFactory= airControllerFactory;
     this.constructedChildren= new ArrayList<SystemController>();
 
+  }
+
+  public int MakeChildToNumber(int currentCount){
+    currentCount= engineControllerFactory.MakeChildToNumber(currentCount);
+    currentCount= gyroControllerFactory.MakeChildToNumber(currentCount);
+    currentCount= fuelControllerFactory.MakeChildToNumber(currentCount);
+    currentCount= electroControllerFactory.MakeChildToNumber(currentCount);
+    currentCount= airControllerFactory.MakeChildToNumber(currentCount);
+    ChildToNumber= new HashMap<SystemController, Integer>();
+    for(SystemController savingElement : constructedChildren){
+      ChildToNumber.Add(savingElement, currentCount);
+      currentCount= currentCount + 1;
+    }
+    return currentCount;
   }
 
   public SystemController CreateSystemController(){
