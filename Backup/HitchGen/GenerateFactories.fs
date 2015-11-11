@@ -100,8 +100,7 @@ let controllerFactoryFiles = controllers |> Seq.map (fun controller ->
   let children = ControllerChildren controller
   let childrenNames = children |> Seq.map (fun c -> controllerNames.Item(c))
   let childrenFactoryNames = children |> Seq.map GetControllerFactoryTypeName
-  let fieldDeclarations = 
-    (GetFieldDeclarations(childrenFactoryNames) |> Seq.toList) @ 
+  let fieldDeclarations = (GetFieldDeclarations(childrenFactoryNames) |> Seq.toList) @ 
     [ConstructedItemsListDeclaration(controllerType);ChildToNumberDeclaration(controllerType);CountedFactoryDeclaration();StoredFactoryChildren()]
   let childrenConstructorInitializations = ((GetConstructorInitializations(childrenFactoryNames)) |> Seq.toList) @ 
                                            [ConstructedItemsListInitialization(controllerType)] 
@@ -111,10 +110,10 @@ let controllerFactoryFiles = controllers |> Seq.map (fun controller ->
                 FactoryConstructionMethod(controller, children)@ [""] @
                 JsonFromChildren(controllerType,children) @ [""] @
                 FactoryDestructionMethod(controller, children)
-  let content = 
-    GetClassContentDescription(childrenConstructorParameters,
-                               childrenConstructorInitializations,
-                               fieldDeclarations,
-                               methods,
-                               GetControllerFactoryTypeName controller)
+  let content = JavaSyntaxParser.GetClassContentDescription(
+    childrenConstructorParameters,
+    childrenConstructorInitializations,
+    fieldDeclarations,
+    methods,
+    GetControllerFactoryTypeName controller)
   GetClassFile(GetControllerFactoryTypeName(controller),"",content))

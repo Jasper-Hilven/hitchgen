@@ -3,6 +3,8 @@ public class AirControllerFactory {
 
   public ArrayList<AirController> constructedChildren;
   public HashMap<AirController, Integer> ChildToNumber;
+  public boolean countedFactory;
+  public boolean storedFactoryChildren;
 
   public AirControllerFactory(){
 
@@ -11,6 +13,10 @@ public class AirControllerFactory {
   }
 
   public int MakeChildToNumber(int currentCount){
+    if(countedFactory){
+      return currentCount;
+    }
+    countedFactory= true;
     ChildToNumber= new HashMap<AirController, Integer>();
     for(AirController savingElement : constructedChildren){
       ChildToNumber.Add(savingElement, currentCount);
@@ -19,10 +25,23 @@ public class AirControllerFactory {
     return currentCount;
   }
 
+  public void RemoveChildNumberCollection(){
+    ChildToNumber= null;
+    countedFactory= false;
+    StoredFactoryChildren= false;
+  }
+
   public AirController CreateAirController(){
     AirController result= new AirController();
     constructedChildren.Add(result);
     return result;
+  }
+
+  public String GenerateJSon(){
+    if(storedFactoryChildren){
+      return "[]";
+    }
+    storedFactoryChildren= true;
   }
 
   public AirController DestroyAirController(AirController toDestroy){

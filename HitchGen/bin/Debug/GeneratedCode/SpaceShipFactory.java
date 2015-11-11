@@ -6,6 +6,8 @@ public class SpaceShipFactory {
   public SystemControllerFactory systemControllerFactory;
   public ArrayList<SpaceShip> constructedChildren;
   public HashMap<SpaceShip, Integer> ChildToNumber;
+  public boolean countedFactory;
+  public boolean storedFactoryChildren;
 
   public SpaceShipFactory(physicsControllerFactory, uIControllerFactory, systemControllerFactory){
 
@@ -17,6 +19,10 @@ public class SpaceShipFactory {
   }
 
   public int MakeChildToNumber(int currentCount){
+    if(countedFactory){
+      return currentCount;
+    }
+    countedFactory= true;
     currentCount= physicsControllerFactory.MakeChildToNumber(currentCount);
     currentCount= uIControllerFactory.MakeChildToNumber(currentCount);
     currentCount= systemControllerFactory.MakeChildToNumber(currentCount);
@@ -28,6 +34,15 @@ public class SpaceShipFactory {
     return currentCount;
   }
 
+  public void RemoveChildNumberCollection(){
+    ChildToNumber= null;
+    physicsControllerFactory.RemoveChildNumberCollection();
+    uIControllerFactory.RemoveChildNumberCollection();
+    systemControllerFactory.RemoveChildNumberCollection();
+    countedFactory= false;
+    StoredFactoryChildren= false;
+  }
+
   public SpaceShip CreateSpaceShip(){
     PhysicsController physicsController= physicsControllerFactory.CreatePhysicsController();
     UIController uIController= uIControllerFactory.CreateUIController();
@@ -35,6 +50,13 @@ public class SpaceShipFactory {
     SpaceShip result= new SpaceShip(physicsController, uIController, systemController);
     constructedChildren.Add(result);
     return result;
+  }
+
+  public String GenerateJSon(){
+    if(storedFactoryChildren){
+      return "[]";
+    }
+    storedFactoryChildren= true;
   }
 
   public SpaceShip DestroySpaceShip(SpaceShip toDestroy){

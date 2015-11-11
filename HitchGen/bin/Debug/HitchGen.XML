@@ -104,7 +104,22 @@
 <member name="">
 
 </member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
 <member name="T:GenerateFactories">
+
+</member>
+<member name="">
 
 </member>
 <member name="">
@@ -214,6 +229,9 @@ EXPRESSION
 <member name="">
 
 </member>
+<member name="">
+
+</member>
 <member name="T:JavaSyntaxParser">
 
 </member>
@@ -226,7 +244,31 @@ EXPRESSION
 <member name="">
 
 </member>
+<member name="T:PropertyDefinitions">
+
+</member>
 <member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="T:PropertyGeneration">
 
 </member>
 <member name="">
@@ -397,7 +439,16 @@ EXPRESSION
 <member name="">
 
 </member>
-<member name="T:Properties">
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="T:PropertyLanguage">
 
 </member>
 </members>

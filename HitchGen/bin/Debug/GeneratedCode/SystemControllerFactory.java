@@ -8,6 +8,8 @@ public class SystemControllerFactory {
   public AirControllerFactory airControllerFactory;
   public ArrayList<SystemController> constructedChildren;
   public HashMap<SystemController, Integer> ChildToNumber;
+  public boolean countedFactory;
+  public boolean storedFactoryChildren;
 
   public SystemControllerFactory(engineControllerFactory, gyroControllerFactory, fuelControllerFactory, electroControllerFactory, airControllerFactory){
 
@@ -21,6 +23,10 @@ public class SystemControllerFactory {
   }
 
   public int MakeChildToNumber(int currentCount){
+    if(countedFactory){
+      return currentCount;
+    }
+    countedFactory= true;
     currentCount= engineControllerFactory.MakeChildToNumber(currentCount);
     currentCount= gyroControllerFactory.MakeChildToNumber(currentCount);
     currentCount= fuelControllerFactory.MakeChildToNumber(currentCount);
@@ -34,6 +40,17 @@ public class SystemControllerFactory {
     return currentCount;
   }
 
+  public void RemoveChildNumberCollection(){
+    ChildToNumber= null;
+    engineControllerFactory.RemoveChildNumberCollection();
+    gyroControllerFactory.RemoveChildNumberCollection();
+    fuelControllerFactory.RemoveChildNumberCollection();
+    electroControllerFactory.RemoveChildNumberCollection();
+    airControllerFactory.RemoveChildNumberCollection();
+    countedFactory= false;
+    StoredFactoryChildren= false;
+  }
+
   public SystemController CreateSystemController(){
     EngineController engineController= engineControllerFactory.CreateEngineController();
     GyroController gyroController= gyroControllerFactory.CreateGyroController();
@@ -43,6 +60,13 @@ public class SystemControllerFactory {
     SystemController result= new SystemController(engineController, gyroController, fuelController, electroController, airController);
     constructedChildren.Add(result);
     return result;
+  }
+
+  public String GenerateJSon(){
+    if(storedFactoryChildren){
+      return "[]";
+    }
+    storedFactoryChildren= true;
   }
 
   public SystemController DestroySystemController(SystemController toDestroy){

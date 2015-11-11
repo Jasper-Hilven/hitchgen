@@ -18,8 +18,8 @@ let GetLocalFieldExpression(fieldName:string) = "this." + fieldName
 ////STATEMENT
 let GetIfThenBlock(condition : string, thenBlock : string list) = ["    if(" + condition + "){"] @ (thenBlock |> List.map(fun x -> "  "+ x)) @ ["    }"]
 let GetExpressionEvaluation(expression: string) = "    " + expression + ";"
-let GetAssignment(assignTo : string, valueToAssign : string) = "    " + assignTo + "= " + valueToAssign + ";" 
-let GetDeclAssignment(assignTo : JVariable, valueToAssign : string) = GetAssignment(assignTo.vType + " " + assignTo.vName,valueToAssign)
+let GetAssignment(AssignTo : string, valueToAssign : string) = "    " + AssignTo + "= " + valueToAssign + ";" 
+let GetDeclAssignment(AssignTo : JVariable, valueToAssign : string) = GetAssignment(AssignTo.vType + " " + AssignTo.vName,valueToAssign)
 let returnStatement(returningValue: string) = "    return " + returningValue + ";"
 let GetForeach(iterateElement:JVariable,collection : JVariableRef,innerExpression :string list) = 
   ["    for(" + iterateElement.vType + " " + iterateElement.vName + " : " + collection + "){"] @ (innerExpression |> List.map(fun x -> "  "+ x)) @["    }"] 
@@ -29,9 +29,11 @@ let GetFieldDeclaration(typeString,nameString) = "  public " + typeString + " " 
 let GetFieldName(controllerName:string) = if controllerName.Length.Equals(0) then controllerName else controllerName.Substring(0,1).ToLower()+ controllerName.Substring(1)
 
 let GetFieldAssignment(fieldName:string,fieldValue:string) = GetAssignment(GetLocalFieldExpression(fieldName),fieldValue)
-
-let GetFieldDeclarations(childrenNames) = 
-  childrenNames |> Seq.map (fun childName -> GetFieldDeclaration(GetTypeString(childName),GetFieldName(childName)))
+let GetFieldDeclarations(childrenNames) = childrenNames |> Seq.map (
+    fun childName -> 
+      let childFieldName = GetFieldName(childName)
+      let childType = GetTypeString(childName)
+      GetFieldDeclaration(childType,childFieldName))
 
 //VARIABLES
 let GetVariableDeclarationAssignment(toCreate : JVariable, assignedValue : string) = "    " + toCreate.vType + " "+ toCreate.vName + "= " + assignedValue + ";"
