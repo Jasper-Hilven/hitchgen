@@ -28,18 +28,41 @@ type JVariable(name:string,jVType:JType) =
   member public this.Name = name
 
 and JStatement = 
+| DeclarationAssignment of JVariable * JRightHandValue
 | VariableAssignment of JVariable * JRightHandValue
 | MultipleStatement of JStatement * JStatement
+| IfThenBlock of JRightHandValue * JStatement * JStatement
+| EmptyStatement
+| ReturnStatement of JRightHandValue
+| Foreach of JVariable * JRightHandValue * JStatement
   member this.GetStringRepresentation() = 
     match this with
-    | VariableAssignment(v,rhv) -> [v.GetStringRepresentation()+ "= " + rhv.GetStringRepresentation() + ";"]
+    | DeclarationAssignment(v,rhv) -> [v.GetStringRepresentation()+ "= " + rhv.GetStringRepresentation() + ";"]
+    | VariableAssignment(v,rhv) -> [v.Name + "= " + rhv.GetStringRepresentation() + ";"]
     | MultipleStatement(l,r) -> l.GetStringRepresentation()@r.GetStringRepresentation()
+    | IfThenBlock(c,t,e) -> ["if(" + c.GetStringRepresentation() + "){"]@t.GetStringRepresentation()@["else"] @ e.GetStringRepresentation() @ ["}"]
+    | EmptyStatement -> [";"]
+    | ReturnStatement rhv -> ["return " + rhv.GetStringRepresentation() +  ";"]
+    | Foreach(v,col,st) -> ("for(" + v.GetStringRepresentation() + ": " + col.GetStringRepresentation() + "){")::st.GetStringRepresentation() @ [";"]
+
 and JRightHandValue = 
 | Eval of JVariable
+| FieldEval of JVariable
+| AccessField of JVariable * JVariable
+| ConstrCall of JType * (JVariable list)
+| MethodCall of JVariable * JVariable * (JVariable list) 
   member this.GetStringRepresentation() : string= 
+    
+    let getListedVariables(parameters : JVariable list) =
+      let variablesListed = parameters |> List.map (fun (o:JVariable) -> o.GetStringRepresentation())
+      if variablesListed.Length.Equals(0) then "" else variablesListed |> List.reduce (fun a b -> a + ", " + b)
+
     match this with
     | Eval v-> v.Name
-
+    | FieldEval v-> "this." + v.Name
+    | AccessField(l,r) -> l.GetStringRepresentation() + "." + r.GetStringRepresentation()
+    | ConstrCall(jType,vList)-> "new " + jType.GetBoxedStringRep() + "(" + getListedVariables(vList) + ")"
+    | MethodCall(jObj,jMeth,parameters) -> jObj.Name + "." + jMeth.Name + "(" + getListedVariables(parameters) + ")"
 let indent2Lines lines= lines |> List.map (fun l -> "  " + l)
 let indent4Lines lines= lines |> List.map (fun l -> "    " + l)
 
