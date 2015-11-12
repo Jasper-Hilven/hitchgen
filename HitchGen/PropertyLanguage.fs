@@ -23,8 +23,7 @@ type Prop =
 | AirMaximum
 
 let spaceShipPhysicsMembers = 
-  [Prop.Mass, Prop.Position, Prop.Speed, Prop.Impulses, Prop.PassedRotationTime, 
-   Prop.IsRotationTurn, Prop.Orientation, Prop.Rotation, Prop.RotationImpulses]
+  [Prop.Mass, Prop.Position, Prop.Speed, Prop.Impulses, Prop.PassedRotationTime, Prop.IsRotationTurn, Prop.Orientation, Prop.Rotation, Prop.RotationImpulses]
 
 type PropContentLangConsts = 
 | SingleRotationTime
@@ -46,18 +45,31 @@ and Operation =
 | Add of PropContentLang * PropContentLang
 | Subtr of PropContentLang * PropContentLang
 | Div of PropContentLang * PropContentLang
+  member this.GetOperators() = 
+  match this with
+    | Mult(p1,p2) -> [p1;p2]
+    | Add (p1,p2) -> [p1;p2]
+    | Subtr (p1,p2) -> [p1;p2]
+    | Div (p1,p2) -> [p1;p2]
 
 and BeginValue = 
 |Null
 |Bool of BoolValue
 |UnitQuaternion
 and BoolValue = 
-| True
-| False
-| Cast of PropContentLang
-| GreaterThan of PropContentLang * PropContentLang
-| Eq of PropContentLang * PropContentLang
-
+  | True
+  | False
+  | Cast of PropContentLang
+  | GreaterThan of PropContentLang * PropContentLang
+  | Eq of PropContentLang * PropContentLang
+  member this.GetOperators() = 
+    match this with
+    |  True -> []
+    |  False-> []
+    |  Cast p -> [p]
+    |  GreaterThan(a,b) -> [a;b]
+    |  Eq(a,b) -> [a;b]
+  
 type Initialization = 
 |  InitialOrGiven of BeginValue
 |  Initial of BeginValue
@@ -69,17 +81,4 @@ type PropertyValueDef(initialization  :Initialization, updateFunction : UpdateFu
   member this.initialization = initialization
   member this.updateFunction = updateFunction
 
-let GetOperators(operation : Operation) = 
-   match operation with
-   | Mult(p1,p2) -> [p1;p2]
-   | Add (p1,p2) -> [p1;p2]
-   | Subtr (p1,p2) -> [p1;p2]
-   | Div (p1,p2) -> [p1;p2]
 
-let GetOperatorsBool(boolVal : BoolValue) = 
-  match boolVal with
-  |  True -> []
-  |  False-> []
-  |  Cast p -> [p]
-  |  GreaterThan(a,b) -> [a;b]
-  |  Eq(a,b) -> [a;b]

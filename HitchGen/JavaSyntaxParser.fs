@@ -1,22 +1,17 @@
 ﻿module JavaSyntaxParser
 
-//////TYPES
-type JType = string
-type JVariable = {vName : string; vType : JType}
-type JVariableRef = string
-let CreateJVariable(vName,vType) = {vName = vName; vType =vType}
+
+     
+        
+let CreateJVariable(vName,vType) = JVariable(vName, vType )
 let GetTypeString(controllerName:string) = controllerName
-let GetListTypeOf(elementType:JType) = "ArrayList<" + elementType + ">"
-let GetMapTypeOf(keyType:JType,valueType:JType) = "HashMap<" + keyType + ", " + valueType + ">"
-let GetVoidType() = "void"
-let GetIntType() = "int"
-let GetStringType() = "String"
-let GetBoxedIntType()= "Integer"
+let GetListTypeOf(elementType:JType) = JType.List(elementType)
+let GetMapTypeOf(keyType:JType,valueType:JType) = JType.Map(keyType,valueType)
 ///EXPRESSION
-let GetLocalFieldExpression(fieldName:string) = "this." + fieldName
+let GetLocalFieldExpression(fieldVariable:JVariable) = "this." + fieldVariable.Name
 
 ////STATEMENT
-let GetIfThenBlock(condition : string, thenBlock : string list) = ["    if(" + condition + "){"] @ (thenBlock |> List.map(fun x -> "  "+ x)) @ ["    }"]
+let GetIfThenBlock(condition : string, thenBlock : string list) = ["if(" + condition + "){"] @ (thenBlock |> List.map(fun x -> "  "+ x)) @ ["    }"]
 let GetExpressionEvaluation(expression: string) = "    " + expression + ";"
 let GetAssignment(assignTo : string, valueToAssign : string) = "    " + assignTo + "= " + valueToAssign + ";" 
 let GetDeclAssignment(assignTo : JVariable, valueToAssign : string) = GetAssignment(assignTo.vType + " " + assignTo.vName,valueToAssign)
@@ -51,22 +46,3 @@ let GetParameterDeclarationDescriptions(variables: JVariable seq) = variables |>
 let GetMethodDeclaration(declaration : JVariable , parameters: JVariable seq,content : string seq) = 
   let methodHeader = "  public " + declaration.vType + " "+ declaration.vName + "(" + GetParameterDeclarationDescriptions(parameters) + "){"
   [methodHeader] @ (content |> Seq.toList) @ ["  }"]  
-//CLASS
-let GetClassContentDescription(constructorParameter: string,
-                               constructorAssignments: string seq,
-                               fieldDeclarations: string seq,
-                               methods : string seq,
-                               className: string) = 
-  let classHeader = ["public class " + className + " {"]
-  let constructorHeader = ["  public " + className + "(" + constructorParameter+ "){"]
-  let constructorTail = ["  }"]
-  let classTail = ["}"]
-  let singleWhiteLine = [""]
-  let doubleWhiteLine = singleWhiteLine@ singleWhiteLine
-  classHeader @ doubleWhiteLine @
-  (fieldDeclarations |> Seq.toList) @ singleWhiteLine @
-  constructorHeader @ singleWhiteLine @ (constructorAssignments |> Seq.toList) @ singleWhiteLine @ constructorTail @ singleWhiteLine @ 
-  (methods |> Seq.toList) @ singleWhiteLine @
-  classTail
-type ClassFile = {Name : string; ContainedNameSpace: string; ClassContent:string seq}
-let GetClassFile(name : string, containedNameSpace: string, classContent: string seq) = {Name = name + ".java"; ContainedNameSpace = containedNameSpace; ClassContent = classContent}

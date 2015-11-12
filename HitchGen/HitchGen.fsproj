@@ -50,6 +50,7 @@
     <Compile Include="PropertyLanguage.fs" />
     <Compile Include="PropertyDefinitions.fs" />
     <Compile Include="PropertyGeneration.fs" />
+    <Compile Include="JAST.fs" />
     <Compile Include="JavaSyntaxParser.fs" />
     <Compile Include="GenerateBasics.fs" />
     <Compile Include="GenerateFactories.fs" />

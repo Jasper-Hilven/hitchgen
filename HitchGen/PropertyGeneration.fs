@@ -24,11 +24,11 @@ let ParseProperties(controller) =
         
         match element with
         | Prev e -> GetEmptyRelations()
-        | Oper operation-> GetOperators(operation) |> mapGetReduce
+        | Oper operation-> operation.GetOperators() |> mapGetReduce
         | Value value-> GetSingleRelation(currentProperty,value)
-        | BoolVal boolVal -> GetOperatorsBool(boolVal) |> mapGetReduce
+        | BoolVal boolVal -> boolVal.GetOperators() |> mapGetReduce
         | TPF -> GetEmptyRelations()
-        | CollectCumulative operation -> GetOperators(operation) |> mapGetReduce
+        | CollectCumulative operation -> operation.GetOperators() |> mapGetReduce
         | CurrentCumulative -> GetEmptyRelations()
         | AddToCumulative -> GetEmptyRelations()
         | Const _ -> GetEmptyRelations()
