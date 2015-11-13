@@ -1,12 +1,12 @@
 ﻿module JAPI
 
 open JAST
-///TYPES        
+///TYPES
 let GetListTypeOf(elementType:JType) = JType.List(elementType)
 let GetMapTypeOf(keyType:JType,valueType:JType) = JType.Map(keyType,valueType)
 let GetFreeType(freeType:string) = Dedicated(freeType)
 ///VARIABLES
-let GetVariable(vName:string,vType: JType) = JVariable(vName, vType)     
+let GetVariable(vName:string,vType: JType) = JVariable(vName, vType)
 ///EXPRESSION
 let GetFieldEval(field:JVariable) = FieldEval(field) 
 
