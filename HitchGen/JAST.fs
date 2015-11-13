@@ -30,7 +30,8 @@ type JVariable(name:string,jVType:JType) =
 and JStatement = 
 | DeclarationAssignment of JVariable * JRightHandValue
 | VariableAssignment of JVariable * JRightHandValue
-| MultipleStatement of JStatement * JStatement
+| FieldAssignment of JVariable * JRightHandValue
+| MultipleStatement of (JStatement list)
 | IfThenBlock of JRightHandValue * JStatement * JStatement
 | EmptyStatement
 | ReturnStatement of JRightHandValue
@@ -39,7 +40,11 @@ and JStatement =
     match this with
     | DeclarationAssignment(v,rhv) -> [v.GetStringRepresentation()+ "= " + rhv.GetStringRepresentation() + ";"]
     | VariableAssignment(v,rhv) -> [v.Name + "= " + rhv.GetStringRepresentation() + ";"]
-    | MultipleStatement(l,r) -> l.GetStringRepresentation()@r.GetStringRepresentation()
+    | FieldAssignment(v,rhv) -> ["this." + v.Name + "= " + rhv.GetStringRepresentation() + ";"]
+    | MultipleStatement sm -> if sm.Length.Equals(0) 
+                              then [] 
+                              else sm |> List.map (fun a-> a.GetStringRepresentation())
+                                      |> List.reduce (fun a b -> a @ b)
     | IfThenBlock(c,t,e) -> ["if(" + c.GetStringRepresentation() + "){"]@t.GetStringRepresentation()@["else"] @ e.GetStringRepresentation() @ ["}"]
     | EmptyStatement -> [";"]
     | ReturnStatement rhv -> ["return " + rhv.GetStringRepresentation() +  ";"]
@@ -71,7 +76,8 @@ let getListedVariables(parameters : JVariable list) =
 
 let indent2Lines lines= lines |> List.map (fun l -> "  " + l)
 let indent4Lines lines= lines |> List.map (fun l -> "    " + l)
-
+let emptyLine = [""]
+let doubleEmptyLine = ["";""]
 
 type JMethod(name:string,jType : JType, parameters : JVariable list,statements : JStatement) =
   member this.Print() : string list = 
@@ -84,17 +90,27 @@ type JMethod(name:string,jType : JType, parameters : JVariable list,statements :
 type JConstructor(jType : JType, parameters: JVariable list, statements : JStatement) = 
   member this.Print() : string list =
     let concatVariables = getListedVariables(parameters)
-    let declaration = "public" + jType.GetBoxedStringRep() + "(" + concatVariables + "){"
+    let declaration = "public " + jType.GetBoxedStringRep() + "(" + concatVariables + "){"
     let indentedStatements = indent4Lines(statements.GetStringRepresentation()) 
     let ending = ["}"]
-    declaration::indentedStatements @ ending
+    declaration::emptyLine @ indentedStatements @ emptyLine @ ending
 
-type JClass(name:string,methods: JMethod list, fields : JVariable list) = 
+type JClass(jType:JType,constructors : JConstructor list, methods: JMethod list, fields : JVariable list) = 
+  member this.FileName = jType.GetStringRep() + ".java"
   member this.Print() = 
-    let classDefLine =  "public class " + name + "{"
+    let classDefLine =  "public class " + jType.GetBoxedStringRep() + "{"
     let printField(field : JVariable)= "  "+ field.GetStringRepresentation() + ";"
-    let fieldDeclarations = if fields.Length.Equals(0) then [] else List.map printField fields
+    let fieldDeclarations = 
+      if fields.Length.Equals(0) then [] else List.map printField fields
+      |> indent2Lines
+    let constructorsPrinted = constructors |> List.map (fun m -> m.Print())
+    let constructorLines = 
+      if(constructorsPrinted.Length = 0) then [] else constructorsPrinted |> List.reduce(fun a b -> a @ [""] @ b)
+      |> indent2Lines
     let methodsPrinted = methods |> List.map(fun m -> m.Print())
-    let methodsLines = if(methods.Length = 0) then [] else methodsPrinted |> List.reduce(fun a b -> a @ [""] @ b)
-    let classClosing = "}"
-    classDefLine::methodsLines @ [classClosing]
+    let methodsLines = 
+      if(methods.Length = 0) then [] else methodsPrinted |> List.reduce(fun a b -> a @ [""] @ b)
+      |> indent2Lines
+    let classClosing = ["}"]
+    let fullDescription = classDefLine::doubleEmptyLine @ fieldDeclarations @ doubleEmptyLine @ constructorLines @ doubleEmptyLine @methodsLines @ doubleEmptyLine @classClosing
+    fullDescription

@@ -1,15 +1,11 @@
-﻿open Controllers
-open JavaSyntaxParser
-open System
-open GenerateBasics
+﻿open GenerateBasics
 open GenerateFactories
-open PropertyGeneration
-  
+open System
 
 [<EntryPoint>]
 let main argv = 
   
-  let allFiles = Seq.append controllerFiles controllerFactoryFiles
+  let allFiles = controllerFactoryFiles
   
   Console.WriteLine(Environment.CurrentDirectory)
   
@@ -18,9 +14,7 @@ let main argv =
   IO.Directory.Delete(directoryInfo.FullName,true);
   
   IO.Directory.CreateDirectory("GeneratedCode") |> ignore
-  
-  allFiles |> Seq.iter (fun (f:ClassFile) -> 
-    use fs = IO.File.CreateText("GeneratedCode\\" + f.Name)
-    f.ClassContent |> Seq.iter (fun l -> fs.WriteLine(l)))
-  let def = ParseProperties(Controller.PhysicsController)
+  allFiles |> List.iter (fun (f) -> 
+    use fs = IO.File.CreateText("GeneratedCode\\" + f.FileName)
+    f.Print() |> List.iter (fun l -> fs.WriteLine(l)))
   0

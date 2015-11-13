@@ -47,7 +47,25 @@
 <member name="">
 
 </member>
+<member name="">
+
+</member>
 <member name="T:Controllers">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
 
 </member>
 <member name="">
@@ -74,138 +92,31 @@
 <member name="">
 
 </member>
-<member name="">
-
-</member>
-<member name="">
-
-</member>
-<member name="">
-
-</member>
-<member name="">
-
-</member>
-<member name="">
-
-</member>
-<member name="">
-
-</member>
-<member name="">
-
-</member>
-<member name="">
-
-</member>
-<member name="">
-
-</member>
-<member name="">
-
-</member>
-<member name="">
-
-</member>
-<member name="">
-
-</member>
-<member name="">
-
-</member>
-<member name="">
-
-</member>
 <member name="T:GenerateFactories">
 
 </member>
-<member name="">
-
-</member>
-<member name="">
-
-</member>
-<member name="">
-
-</member>
-<member name="">
-
-</member>
-<member name="">
-
-</member>
-<member name="">
-
-</member>
-<member name="">
-
-</member>
-<member name="">
-
-</member>
-<member name="">
-
-</member>
-<member name="">
-
-</member>
-<member name="">
-
-</member>
-<member name="">
-
-</member>
-<member name="">
-
-</member>
-<member name="">
-
-</member>
-<member name="">
-
-</member>
-<member name="">
-
-</member>
-<member name="">
-
-</member>
-<member name="">
-
-</member>
-<member name="">
-
-</member>
-<member name="">
-
-</member>
-<member name="">
-
-</member>
-<member name="">
-
-</member>
-<member name="">
-
-</member>
-<member name="">
-
-</member>
-<member name="">
-
-</member>
-<member name="">
-
-</member>
-<member name="">
-
-</member>
-<member name="">
-
-</member>
-<member name="M:JavaSyntaxParser.GetLocalFieldExpression(System.String)">
+<member name="M:JAPI.GetClass(JAST.JType,Microsoft.FSharp.Collections.FSharpList{JAST.JConstructor},Microsoft.FSharp.Collections.FSharpList{JAST.JMethod},Microsoft.FSharp.Collections.FSharpList{JAST.JVariable})">
 <summary>
-EXPRESSION
+ CLASSDECLARATION
+</summary>
+</member>
+<member name="">
+
+</member>
+<member name="M:JAPI.GetMethodDeclaration(System.String,JAST.JType,Microsoft.FSharp.Collections.FSharpList{JAST.JVariable},JAST.JStatement)">
+<summary>
+ METHODDECLARATION
+</summary>
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="M:JAPI.GetAccessField(JAST.JVariable,JAST.JVariable)">
+<summary>
+ OO
 </summary>
 </member>
 <member name="">
@@ -229,10 +140,216 @@ EXPRESSION
 <member name="">
 
 </member>
+<member name="M:JAPI.GetIfThenBlock(JAST.JRightHandValue,JAST.JStatement)">
+<summary>
+ STATEMENT
+</summary>
+</member>
 <member name="">
 
 </member>
-<member name="T:JavaSyntaxParser">
+<member name="M:JAPI.GetFieldEval(JAST.JVariable)">
+<summary>
+ EXPRESSION
+</summary>
+</member>
+<member name="M:JAPI.GetVariable(System.String,JAST.JType)">
+<summary>
+ VARIABLES
+</summary>
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="M:JAPI.GetListTypeOf(JAST.JType)">
+<summary>
+ TYPES
+</summary>
+</member>
+<member name="T:JAPI">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="T:JAST">
 
 </member>
 <member name="">

@@ -1,12 +1,26 @@
 ﻿module GenerateFactories
 open Controllers
-open JavaSyntaxParser
+open JAPI
 open GenerateBasics
 
 
-let GetControllerFactoryTypeName controller = controllerNames.Item(controller) + "Factory"
+let GetControllerFactoryType(controller)= GetFreeType(GetControllerName(controller) + "Factory")
+let GetControllerFactoryVariable(controller)= GetVariableOfType(GetControllerFactoryType(controller))
 
-////CHILDRENLIST
+
+let GetFactoryClass(controller) = 
+  let controllerFactoryType = GetControllerFactoryType(controller)
+  let childrenVariables = GetChildVariables(Controllers.GetControllerChildren(controller))
+  let childrenFactoryVariables = Controllers.GetControllerChildren(controller) |> List.map GetControllerFactoryVariable
+  let factoryConstructor = GetConstructorViaFieldInitializations(childrenFactoryVariables, controllerFactoryType)
+  let methods = []
+  let fields = childrenFactoryVariables
+  JAPI.GetClass(controllerFactoryType,[factoryConstructor],methods,childrenFactoryVariables)
+
+let controllerFactoryFiles = controllers |> List.map GetFactoryClass
+
+
+(*////CHILDRENLIST
 let constructedChildren = "constructedChildren"
 let ConstructedItemsListDeclaration(controllerType) = GetFieldDeclaration(GetListTypeOf(controllerType),constructedChildren)
 let ConstructedItemsListInitialization(controllerType) = GetFieldAssignment(constructedChildren,GetConstructorCall(GetListTypeOf(controllerType),[]))
@@ -93,28 +107,5 @@ let removeNumberCount(controllerType : JType, children : Controller seq) =
 
  
 
-
-
-let controllerFactoryFiles = controllers |> Seq.map (fun controller -> 
-  let controllerType = GetTypeString(controllerNames.Item(controller))
-  let children = ControllerChildren controller
-  let childrenNames = children |> Seq.map (fun c -> controllerNames.Item(c))
-  let childrenFactoryNames = children |> Seq.map GetControllerFactoryTypeName
-  let fieldDeclarations = 
-    (GetFieldDeclarations(childrenFactoryNames) |> Seq.toList) @ 
-    [ConstructedItemsListDeclaration(controllerType);ChildToNumberDeclaration(controllerType);CountedFactoryDeclaration();StoredFactoryChildren()]
-  let childrenConstructorInitializations = ((GetConstructorInitializations(childrenFactoryNames)) |> Seq.toList) @ 
-                                           [ConstructedItemsListInitialization(controllerType)] 
-  let childrenConstructorParameters = children |> Seq.map (fun c -> GetFieldName(GetControllerFactoryTypeName c)) |> JavaSyntaxParser.GetParameterDescriptions
-  let methods = childToNumberCount(controllerType,children) @ [""] @
-                removeNumberCount(controllerType, children)@ [""] @
-                FactoryConstructionMethod(controller, children)@ [""] @
-                JsonFromChildren(controllerType,children) @ [""] @
-                FactoryDestructionMethod(controller, children)
-  let content = 
-    GetClassContentDescription(childrenConstructorParameters,
-                               childrenConstructorInitializations,
-                               fieldDeclarations,
-                               methods,
-                               GetControllerFactoryTypeName controller)
-  GetClassFile(GetControllerFactoryTypeName(controller),"",content))
+ *)
+  
