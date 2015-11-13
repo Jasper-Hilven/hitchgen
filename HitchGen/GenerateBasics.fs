@@ -1,4 +1,5 @@
 ﻿module GenerateBasics
+
 open Controllers
 open JAPI
 
@@ -11,7 +12,7 @@ let GetFieldName(controller: Controller) =
 let GetChildVariables(childControllers: Controller list) = 
   childControllers |> Seq.map (fun cc -> GetVariable(GetFieldName(cc),GetTypeOfController(cc)))
 
-let GetConstructorInitializations(childControllers) = 
+let GetConstructorInitializations(childControllers) =
   childrenNames |> Seq.map(fun childName -> GetFieldAssignment(JavaSyntaxParser.GetFieldName(childName),JavaSyntaxParser.GetFieldName(childName)))
 let GetJVariableOfController(c) = {vName = GetFieldName(controllerNames.Item(c)); vType = GetTypeString(controllerNames.Item(c))}
 

@@ -63,22 +63,31 @@ and JRightHandValue =
     | AccessField(l,r) -> l.GetStringRepresentation() + "." + r.GetStringRepresentation()
     | ConstrCall(jType,vList)-> "new " + jType.GetBoxedStringRep() + "(" + getListedVariables(vList) + ")"
     | MethodCall(jObj,jMeth,parameters) -> jObj.Name + "." + jMeth.Name + "(" + getListedVariables(parameters) + ")"
+
+let getListedVariables(parameters : JVariable list) =
+      let variablesListed = parameters |> List.map (fun (o:JVariable) -> o.GetStringRepresentation())
+      if variablesListed.Length.Equals(0) then "" else variablesListed |> List.reduce (fun a b -> a + ", " + b)
+
+
 let indent2Lines lines= lines |> List.map (fun l -> "  " + l)
 let indent4Lines lines= lines |> List.map (fun l -> "    " + l)
 
 
-type JMethod(name:string,jType : JType, parameters : JVariable list,statements : JStatement list) =
+type JMethod(name:string,jType : JType, parameters : JVariable list,statements : JStatement) =
   member this.Print() : string list = 
-    let concatVariables = 
-      let variablesListed:string list = parameters |> List.map (fun (o:JVariable) -> o.GetStringRepresentation())
-      if variablesListed.Length.Equals(0) then "" else variablesListed |> List.reduce (fun a b -> a + ", " + b)
-    let declaration = "  public " + jType.GetStringRep() + " " + name + "(" + concatVariables + "){"
-    let indentedStatements = 
-      if statements.Length.Equals(0) then [] else 
-      (statements |> List.map (fun s->s.GetStringRepresentation()) |> List.reduce (fun s1 s2 -> s1 @ s2) |> indent4Lines )
+    let concatVariables = getListedVariables(parameters)
+    let declaration = "public " + jType.GetStringRep() + " " + name + "(" + concatVariables + "){"
+    let indentedStatements = indent4Lines(statements.GetStringRepresentation()) 
     let ending = ["}"]
     declaration::indentedStatements @ ending
 
+type JConstructor(jType : JType, parameters: JVariable list, statements : JStatement) = 
+  member this.Print() : string list =
+    let concatVariables = getListedVariables(parameters)
+    let declaration = "public" + jType.GetBoxedStringRep() + "(" + concatVariables + "){"
+    let indentedStatements = indent4Lines(statements.GetStringRepresentation()) 
+    let ending = ["}"]
+    declaration::indentedStatements @ ending
 
 type JClass(name:string,methods: JMethod list, fields : JVariable list) = 
   member this.Print() = 
