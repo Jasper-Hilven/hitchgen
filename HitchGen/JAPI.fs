@@ -25,4 +25,5 @@ let GetCallOnObject(calledObject: JVariable, methodRef: JVariable, parameters: J
 
 ////METHODDECLARATION
 
-let GetMethodDeclaration(name:string,jType : JType, parameters : JVariable list,statements : JStatement list) = JMethod(name,jType,parameters, statements) 
+let GetMethodDeclaration(name:string,jType : JType, parameters : JVariable list,statements : JStatement) = JMethod(name,jType,parameters, statements) 
+let GetConstructorDeclaration(jType: JType, parameters: JVariable list, statements: JStatement) =  JConstructor(jType, parameters, statements)

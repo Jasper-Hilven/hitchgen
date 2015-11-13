@@ -98,5 +98,3 @@ type JClass(name:string,methods: JMethod list, fields : JVariable list) =
     let methodsLines = if(methods.Length = 0) then [] else methodsPrinted |> List.reduce(fun a b -> a @ [""] @ b)
     let classClosing = "}"
     classDefLine::methodsLines @ [classClosing]
-
-  
