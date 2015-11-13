@@ -51,7 +51,7 @@
     <Compile Include="PropertyDefinitions.fs" />
     <Compile Include="PropertyGeneration.fs" />
     <Compile Include="JAST.fs" />
-    <Compile Include="JavaSyntaxParser.fs" />
+    <Compile Include="JAPI.fs" />
     <Compile Include="GenerateBasics.fs" />
     <Compile Include="GenerateFactories.fs" />
     <Compile Include="Program.fs" />
