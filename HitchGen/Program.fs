@@ -5,7 +5,7 @@ open System
 [<EntryPoint>]
 let main argv = 
   
-  let allFiles = controllerFactoryFiles
+  let allFiles = controllerFactoryFiles @ controllerFiles
   
   Console.WriteLine(Environment.CurrentDirectory)
   

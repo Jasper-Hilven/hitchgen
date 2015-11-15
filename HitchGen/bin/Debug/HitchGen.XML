@@ -23,6 +23,30 @@
 <member name="">
 
 </member>
+<member name="T:APIExtensions">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
 <member name="">
 
 </member>
@@ -68,16 +92,28 @@
 <member name="">
 
 </member>
-<member name="">
-
-</member>
-<member name="">
-
-</member>
-<member name="">
-
-</member>
 <member name="T:GenerateBasics">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
 
 </member>
 <member name="">
@@ -140,6 +176,9 @@
 <member name="">
 
 </member>
+<member name="">
+
+</member>
 <member name="M:JAPI.GetIfThenBlock(JAST.JRightHandValue,JAST.JStatement)">
 <summary>
  STATEMENT
@@ -164,12 +203,30 @@
 <member name="">
 
 </member>
+<member name="">
+
+</member>
 <member name="M:JAPI.GetListTypeOf(JAST.JType)">
 <summary>
  TYPES
 </summary>
 </member>
 <member name="T:JAPI">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
 
 </member>
 <member name="">

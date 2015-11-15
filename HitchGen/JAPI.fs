@@ -6,6 +6,7 @@ open JAST
 let GetListTypeOf(elementType:JType) = JType.List(elementType)
 let GetMapTypeOf(keyType:JType,valueType:JType) = JType.Map(keyType,valueType)
 let GetFreeType(freeType:string) = Dedicated(freeType)
+let GetVoidType() = JType.Void
 
 /// VARIABLES
 let GetVariable(vName:string,vType: JType) = JVariable(vName, vType)
@@ -20,14 +21,15 @@ let GetIfThenElseBlock(condition : JRightHandValue, thenBlock : JStatement, else
 let GetAssignment(assignTo : JVariable, valueToAssign : JRightHandValue) = VariableAssignment(assignTo,valueToAssign) 
 let GetCollectStatement(statements : JStatement list) = MultipleStatement(statements)
 let GetDeclAssignment(assignTo : JVariable, valueToAssign : JRightHandValue) =  DeclarationAssignment(assignTo,valueToAssign)
+let GetRHVstatement(calculatedValue : JRightHandValue) = RHVStatement(calculatedValue)
 let GetReturnStatement(returningValue: JRightHandValue) = ReturnStatement(returningValue)
 let GetForeach(iterateElement:JVariable,collection : JRightHandValue,innerExpression : JStatement) = Foreach(iterateElement,collection,innerExpression)
 let GetSetField(field : JVariable, valueToAssign : JRightHandValue) = FieldAssignment(field,valueToAssign)
 
 /// OO
 let GetAccessField(owner:JVariable, fieldName:JVariable) =AccessField(owner,fieldName)
-let GetConstructorCall(classType: JType, parameters : JVariable list) = ConstrCall(classType,parameters)
-let GetCallOnObject(calledObject: JVariable, methodRef: JVariable, parameters: JVariable list) = MethodCall(calledObject,methodRef,parameters)
+let GetConstructorCall(classType: JType, parameters) = ConstrCall(classType,parameters)
+let GetCallOnObject(calledObject: JVariable, methodRef: JVariable, parameters) = MethodCall(calledObject,methodRef,parameters)
 
 /// METHODDECLARATION
 let GetMethodDeclaration(name:string,jType : JType, parameters : JVariable list,statements : JStatement) = JMethod(name,jType,parameters, statements) 
@@ -35,3 +37,5 @@ let GetConstructorDeclaration(jType: JType, parameters: JVariable list, statemen
 
 /// CLASSDECLARATION
 let GetClass(name, constructors, methods, fields) = JClass(name,constructors, methods, fields)
+
+

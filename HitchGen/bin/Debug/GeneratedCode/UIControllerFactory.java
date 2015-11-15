@@ -1,14 +1,20 @@
 public class UIControllerFactory{
 
 
+  HashList<UIController> generatedUIController;
 
 
-  publicUIControllerFactory(){
-  
-  
+  public UIControllerFactory(){
+    this.generatedUIController= new HashList<UIController>();
   }
 
 
+  public UIController ConstructUIController(){
+    return new UIController();
+  }
+  
+  public UIController DestructUIController(){
+  }
 
 
 }

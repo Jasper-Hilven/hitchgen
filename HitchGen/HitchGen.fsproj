@@ -52,6 +52,7 @@
     <Compile Include="PropertyGeneration.fs" />
     <Compile Include="JAST.fs" />
     <Compile Include="JAPI.fs" />
+    <Compile Include="APIExtensions.fs" />
     <Compile Include="GenerateBasics.fs" />
     <Compile Include="GenerateFactories.fs" />
     <Compile Include="Program.fs" />
