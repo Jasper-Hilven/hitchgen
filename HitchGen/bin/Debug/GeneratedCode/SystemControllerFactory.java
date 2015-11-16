@@ -1,7 +1,7 @@
 public class SystemControllerFactory{
 
 
-  HashList<SystemController> generatedSystemController;
+  HashList<SystemController> generatedSystemControllers;
   HashMap<SystemController,Integer> savedMapping;
   boolean savedChildren;
   EngineControllerFactory engineControllerFactory;
@@ -12,28 +12,28 @@ public class SystemControllerFactory{
 
 
   public SystemControllerFactory(EngineControllerFactory engineControllerFactory, GyroControllerFactory gyroControllerFactory, FuelControllerFactory fuelControllerFactory, ElectroControllerFactory electroControllerFactory, AirControllerFactory airControllerFactory){
-    this.engineControllerFactory= engineControllerFactory;
-    this.gyroControllerFactory= gyroControllerFactory;
-    this.fuelControllerFactory= fuelControllerFactory;
-    this.electroControllerFactory= electroControllerFactory;
-    this.airControllerFactory= airControllerFactory;
-    this.generatedSystemController= new HashList<SystemController>();
+    this.engineControllerFactory = engineControllerFactory;
+    this.gyroControllerFactory = gyroControllerFactory;
+    this.fuelControllerFactory = fuelControllerFactory;
+    this.electroControllerFactory = electroControllerFactory;
+    this.airControllerFactory = airControllerFactory;
+    this.generatedSystemControllers = new HashList<SystemController>();
   }
 
 
   public SystemController ConstructSystemController(){
-    EngineController engineController= engineControllerFactory.ConstructEngineController();
-    GyroController gyroController= gyroControllerFactory.ConstructGyroController();
-    FuelController fuelController= fuelControllerFactory.ConstructFuelController();
-    ElectroController electroController= electroControllerFactory.ConstructElectroController();
-    AirController airController= airControllerFactory.ConstructAirController();
-    SystemController systemController= new SystemController(engineController, gyroController, fuelController, electroController, airController);
-    generatedSystemController.Add(systemController);
+    EngineController engineController = engineControllerFactory.ConstructEngineController();
+    GyroController gyroController = gyroControllerFactory.ConstructGyroController();
+    FuelController fuelController = fuelControllerFactory.ConstructFuelController();
+    ElectroController electroController = electroControllerFactory.ConstructElectroController();
+    AirController airController = airControllerFactory.ConstructAirController();
+    SystemController systemController = new SystemController(engineController, gyroController, fuelController, electroController, airController);
+    generatedSystemControllers.Add(systemController);
     return systemController;
   }
   
   public SystemController DestructSystemController(){
-    generatedSystemController.Remove(systemController);
+    generatedSystemControllers.Remove(systemController);
     engineControllerFactory.DestructEngineController(systemController.GetEngineController());
     gyroControllerFactory.DestructGyroController(systemController.GetGyroController());
     fuelControllerFactory.DestructFuelController(systemController.GetFuelController());
@@ -45,18 +45,30 @@ public class SystemControllerFactory{
     return savedMapping.Get(key);
   }
   
-  public void StartSavingSystemController(){
+  public void SaveSystemController(){
     if(savedMapping){
       return ;
     }
     else{
-      savedMapping= True;
+      savedMapping = true;
     }
-    engineControllerFactory.StartSavingSystemController();
-    gyroControllerFactory.StartSavingSystemController();
-    fuelControllerFactory.StartSavingSystemController();
-    electroControllerFactory.StartSavingSystemController();
-    airControllerFactory.StartSavingSystemController();
+    engineControllerFactory.SaveEngineController();
+    gyroControllerFactory.SaveGyroController();
+    fuelControllerFactory.SaveFuelController();
+    electroControllerFactory.SaveElectroController();
+    airControllerFactory.SaveAirController();
+    for(SystemController systemController: generatedSystemControllers){
+    ;
+    }
+  }
+  
+  public void FinishSavingSystemController(){
+    savedMapping = false;
+    engineControllerFactory.FinishSavingEngineController();
+    gyroControllerFactory.FinishSavingGyroController();
+    fuelControllerFactory.FinishSavingFuelController();
+    electroControllerFactory.FinishSavingElectroController();
+    airControllerFactory.FinishSavingAirController();
   }
 
 

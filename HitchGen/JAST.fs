@@ -45,9 +45,9 @@ and JStatement =
 | Foreach of JVariable * JRightHandValue * JStatement
   member this.GetStringRepresentation() = 
     match this with
-    | DeclarationAssignment(v,rhv) -> [v.GetStringRepresentation()+ "= " + rhv.GetStringRepresentation() + ";"]
-    | VariableAssignment(v,rhv) -> [v.Name + "= " + rhv.GetStringRepresentation() + ";"]
-    | FieldAssignment(v,rhv) -> ["this." + v.Name + "= " + rhv.GetStringRepresentation() + ";"]
+    | DeclarationAssignment(v,rhv) -> [v.GetStringRepresentation()+ " = " + rhv.GetStringRepresentation() + ";"]
+    | VariableAssignment(v,rhv) -> [v.Name + " = " + rhv.GetStringRepresentation() + ";"]
+    | FieldAssignment(v,rhv) -> ["this." + v.Name + " = " + rhv.GetStringRepresentation() + ";"]
     | MultipleStatement sm -> if sm.Length.Equals(0) 
                               then [] 
                               else sm |> List.map (fun a-> a.GetStringRepresentation())
@@ -57,10 +57,14 @@ and JStatement =
     | EmptyStatement -> [";"]
     | ReturnStatement rhv -> ["return " + rhv.GetStringRepresentation() +  ";"]
     | ReturnStatementVoid ->["return ;"]
-    | Foreach(v,col,st) -> ("for(" + v.GetStringRepresentation() + ": " + col.GetStringRepresentation() + "){")::st.GetStringRepresentation() @ [";"]
+    | Foreach(v,col,st) -> ("for(" + v.GetStringRepresentation() + ": " + col.GetStringRepresentation() + "){")::st.GetStringRepresentation() @ ["}"]
 and JValue = 
 | JTrue
-  member this.GetStringRepresentation(): string = "True"
+| JFalse
+  member this.GetStringRepresentation(): string =
+    match this with
+    |JTrue  -> "true"
+    |JFalse -> "false"
 and JRightHandValue = 
 | Value of JValue
 | Eval of JVariable

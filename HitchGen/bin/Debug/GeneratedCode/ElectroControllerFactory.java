@@ -1,37 +1,44 @@
 public class ElectroControllerFactory{
 
 
-  HashList<ElectroController> generatedElectroController;
+  HashList<ElectroController> generatedElectroControllers;
   HashMap<ElectroController,Integer> savedMapping;
   boolean savedChildren;
 
 
   public ElectroControllerFactory(){
-    this.generatedElectroController= new HashList<ElectroController>();
+    this.generatedElectroControllers = new HashList<ElectroController>();
   }
 
 
   public ElectroController ConstructElectroController(){
-    ElectroController electroController= new ElectroController();
-    generatedElectroController.Add(electroController);
+    ElectroController electroController = new ElectroController();
+    generatedElectroControllers.Add(electroController);
     return electroController;
   }
   
   public ElectroController DestructElectroController(){
-    generatedElectroController.Remove(electroController);
+    generatedElectroControllers.Remove(electroController);
   }
   
   public Int GetIdElectroController(Int key){
     return savedMapping.Get(key);
   }
   
-  public void StartSavingElectroController(){
+  public void SaveElectroController(){
     if(savedMapping){
       return ;
     }
     else{
-      savedMapping= True;
+      savedMapping = true;
     }
+    for(ElectroController electroController: generatedElectroControllers){
+    ;
+    }
+  }
+  
+  public void FinishSavingElectroController(){
+    savedMapping = false;
   }
 
 

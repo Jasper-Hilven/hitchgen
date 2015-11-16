@@ -7,9 +7,9 @@ public class SpaceShip{
 
 
   public SpaceShip(PhysicsController physicsController, UIController uIController, SystemController systemController){
-    this.physicsController= physicsController;
-    this.uIController= uIController;
-    this.systemController= systemController;
+    this.physicsController = physicsController;
+    this.uIController = uIController;
+    this.systemController = systemController;
   }
 
 

@@ -11,7 +11,7 @@ let GetBooleanType() = JType.Bool
 let GetIntType() = JType.Int
 ///VALUES
 let GetTrue() = Value(JValue.JTrue)
-
+let GetFalse() = Value(JValue.JFalse)
 /// VARIABLES
 let GetVariable(vName:string,vType: JType) = JVariable(vName, vType)
 

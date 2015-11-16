@@ -12,12 +12,12 @@ let constructMethodName(controller) = "Construct" + GetControllerVariable(contro
 let constructMethodVariable(controller) = GetVariable(constructMethodName(controller),GetTypeOfController(controller))
 let destructMethodName(controller) = "Destruct" + GetControllerVariable(controller).JType.GetStringRep()
 let destructMethodVariable(controller) = GetVariable(destructMethodName(controller),GetVoidType())
-let childrenCollectionVariable(controller) = GetVariable("generated" + GetControllerName(controller),GetListTypeOf(GetTypeOfController(controller)))
+let childrenCollectionVariable(controller) = GetVariable("generated" + GetControllerName(controller)+ "s",GetListTypeOf(GetTypeOfController(controller)))
 let isSavedVariable() = GetVariable("savedChildren",GetBooleanType())
 let savedMapping(controller) = GetVariable("savedMapping",GetMapTypeOf(GetTypeOfController(controller),GetIntType()))
 let GetIdMethodVariable(controller) = GetVariable("GetId" + GetControllerName(controller),GetIntType())
-let StartSavingMethodVariable(controller) = GetVariable("StartSaving" + GetControllerName(controller),GetVoidType())
-
+let StartSavingMethodVariable(controller) = GetVariable("Save" + GetControllerName(controller),GetVoidType())
+let StopSavingMethodVariable(controller) = GetVariable("FinishSaving" + GetControllerName(controller), GetVoidType())
 
 let constructChildren(controller) = 
   let controllerVariable = GetControllerVariable(controller)
@@ -49,11 +49,18 @@ let GetIdOfChild(controller : Controller) =
   GetMethodDeclaration(GetIdMethodVariable(controller).Name,GetIdMethodVariable(controller).JType,[keyParameter],mContent)
 
 let startSaving(controller : Controller) = 
-  let children = GetControllerChildren(controller)
-  let childrenFactoryVariables = GetControllerChildren(controller) |> List.map GetControllerFactoryVariable
-  let childSavementCalls = childrenFactoryVariables |> List.map (fun cFV -> GetRHVstatement(GetCallOnObject(cFV,StartSavingMethodVariable(controller),[])))
+  let childSavementCalls = GetControllerChildren(controller) |> 
+                           List.map (fun cc -> GetRHVstatement(GetCallOnObject(GetControllerFactoryVariable(cc),StartSavingMethodVariable(cc),[])))
   let returnIfVisited = GetIfThenElseBlock(GetVariableEval(savedMapping(controller)),GetReturnStatementVoid(),GetAssignment(savedMapping(controller),GetTrue()))
-  GetMethodDeclaration(StartSavingMethodVariable(controller).Name,StartSavingMethodVariable(controller).JType,[],MultipleStatement(returnIfVisited::childSavementCalls))
+  let saveOneElement(controller) = JStatement.EmptyStatement
+  let foreachLoop = GetForeach(GetControllerVariable(controller),GetVariableEval(childrenCollectionVariable(controller)),saveOneElement(controller))
+  GetMethodDeclaration(StartSavingMethodVariable(controller).Name,StartSavingMethodVariable(controller).JType,[],MultipleStatement(returnIfVisited::childSavementCalls@[foreachLoop]))
+
+let finishSaving(controller: Controller) = 
+  let childSavementCalls = GetControllerChildren(controller) |> 
+                           List.map (fun cc -> GetRHVstatement(GetCallOnObject(GetControllerFactoryVariable(cc),StopSavingMethodVariable(cc),[])))
+  let setSavingFalse =  GetAssignment(savedMapping(controller), GetFalse())
+  GetMethodDeclaration(StopSavingMethodVariable(controller).Name,StopSavingMethodVariable(controller).JType,[],MultipleStatement(setSavingFalse::childSavementCalls))
 
 let GetFactoryClass(controller) =
   let controllerFactoryType = GetControllerFactoryType(controller)
@@ -63,7 +70,7 @@ let GetFactoryClass(controller) =
   let factoryConstructor =
     let basicConstructor = GetConstructorFieldInitializations(childrenFactoryVariables, controllerFactoryType)
     AppendToConstructor(basicConstructor, GetSetField(childrenCollectionVariable(controller), GetConstructorCall(childrenCollectionVariable(controller).JType,[])))
-  let methods = [constructChildren(controller);destructChildren(controller);GetIdOfChild(controller);startSaving(controller)]
+  let methods = [constructChildren(controller);destructChildren(controller);GetIdOfChild(controller);startSaving(controller);finishSaving(controller)]
   let fields = [childrenCollectionVariable(controller);savedMapping(controller); isSavedVariable()] @ childrenFactoryVariables
   GetClass(controllerFactoryType,[factoryConstructor],methods,fields)
 

@@ -1,37 +1,44 @@
 public class EngineControllerFactory{
 
 
-  HashList<EngineController> generatedEngineController;
+  HashList<EngineController> generatedEngineControllers;
   HashMap<EngineController,Integer> savedMapping;
   boolean savedChildren;
 
 
   public EngineControllerFactory(){
-    this.generatedEngineController= new HashList<EngineController>();
+    this.generatedEngineControllers = new HashList<EngineController>();
   }
 
 
   public EngineController ConstructEngineController(){
-    EngineController engineController= new EngineController();
-    generatedEngineController.Add(engineController);
+    EngineController engineController = new EngineController();
+    generatedEngineControllers.Add(engineController);
     return engineController;
   }
   
   public EngineController DestructEngineController(){
-    generatedEngineController.Remove(engineController);
+    generatedEngineControllers.Remove(engineController);
   }
   
   public Int GetIdEngineController(Int key){
     return savedMapping.Get(key);
   }
   
-  public void StartSavingEngineController(){
+  public void SaveEngineController(){
     if(savedMapping){
       return ;
     }
     else{
-      savedMapping= True;
+      savedMapping = true;
     }
+    for(EngineController engineController: generatedEngineControllers){
+    ;
+    }
+  }
+  
+  public void FinishSavingEngineController(){
+    savedMapping = false;
   }
 
 

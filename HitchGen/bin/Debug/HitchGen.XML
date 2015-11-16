@@ -146,6 +146,14 @@
 <member name="">
 
 </member>
+<member name="">
+
+</member>
+<member name="M:GenerateFactories.GetControllerFactoryType(Controllers.Controller)">
+<summary>
+METHOD HEADERS
+</summary>
+</member>
 <member name="T:GenerateFactories">
 
 </member>
@@ -234,6 +242,9 @@ LIST
  VARIABLES
 </summary>
 </member>
+<member name="">
+
+</member>
 <member name="M:JAPI.GetTrue">
 <summary>
 VALUES
@@ -263,6 +274,9 @@ VALUES
 
 </member>
 <member name="T:JAPI">
+
+</member>
+<member name="">
 
 </member>
 <member name="">

@@ -1,37 +1,44 @@
 public class AirControllerFactory{
 
 
-  HashList<AirController> generatedAirController;
+  HashList<AirController> generatedAirControllers;
   HashMap<AirController,Integer> savedMapping;
   boolean savedChildren;
 
 
   public AirControllerFactory(){
-    this.generatedAirController= new HashList<AirController>();
+    this.generatedAirControllers = new HashList<AirController>();
   }
 
 
   public AirController ConstructAirController(){
-    AirController airController= new AirController();
-    generatedAirController.Add(airController);
+    AirController airController = new AirController();
+    generatedAirControllers.Add(airController);
     return airController;
   }
   
   public AirController DestructAirController(){
-    generatedAirController.Remove(airController);
+    generatedAirControllers.Remove(airController);
   }
   
   public Int GetIdAirController(Int key){
     return savedMapping.Get(key);
   }
   
-  public void StartSavingAirController(){
+  public void SaveAirController(){
     if(savedMapping){
       return ;
     }
     else{
-      savedMapping= True;
+      savedMapping = true;
     }
+    for(AirController airController: generatedAirControllers){
+    ;
+    }
+  }
+  
+  public void FinishSavingAirController(){
+    savedMapping = false;
   }
 
 
