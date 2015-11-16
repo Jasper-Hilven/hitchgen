@@ -2,6 +2,8 @@ public class ElectroControllerFactory{
 
 
   HashList<ElectroController> generatedElectroController;
+  HashMap<ElectroController,Integer> savedMapping;
+  boolean savedChildren;
 
 
   public ElectroControllerFactory(){
@@ -17,6 +19,19 @@ public class ElectroControllerFactory{
   
   public ElectroController DestructElectroController(){
     generatedElectroController.Remove(electroController);
+  }
+  
+  public Int GetIdElectroController(Int key){
+    return savedMapping.Get(key);
+  }
+  
+  public void StartSavingElectroController(){
+    if(savedMapping){
+      return ;
+    }
+    else{
+      savedMapping= True;
+    }
   }
 
 

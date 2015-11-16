@@ -2,6 +2,8 @@ public class GyroControllerFactory{
 
 
   HashList<GyroController> generatedGyroController;
+  HashMap<GyroController,Integer> savedMapping;
+  boolean savedChildren;
 
 
   public GyroControllerFactory(){
@@ -17,6 +19,19 @@ public class GyroControllerFactory{
   
   public GyroController DestructGyroController(){
     generatedGyroController.Remove(gyroController);
+  }
+  
+  public Int GetIdGyroController(Int key){
+    return savedMapping.Get(key);
+  }
+  
+  public void StartSavingGyroController(){
+    if(savedMapping){
+      return ;
+    }
+    else{
+      savedMapping= True;
+    }
   }
 
 

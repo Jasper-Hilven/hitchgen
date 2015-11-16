@@ -1,5 +1,5 @@
 ﻿module JAPI
-
+exception NoMapTypeException
 open JAST
 
 /// TYPES
@@ -7,6 +7,10 @@ let GetListTypeOf(elementType:JType) = JType.List(elementType)
 let GetMapTypeOf(keyType:JType,valueType:JType) = JType.Map(keyType,valueType)
 let GetFreeType(freeType:string) = Dedicated(freeType)
 let GetVoidType() = JType.Void
+let GetBooleanType() = JType.Bool
+let GetIntType() = JType.Int
+///VALUES
+let GetTrue() = Value(JValue.JTrue)
 
 /// VARIABLES
 let GetVariable(vName:string,vType: JType) = JVariable(vName, vType)
@@ -23,6 +27,7 @@ let GetCollectStatement(statements : JStatement list) = MultipleStatement(statem
 let GetDeclAssignment(assignTo : JVariable, valueToAssign : JRightHandValue) =  DeclarationAssignment(assignTo,valueToAssign)
 let GetRHVstatement(calculatedValue : JRightHandValue) = RHVStatement(calculatedValue)
 let GetReturnStatement(returningValue: JRightHandValue) = ReturnStatement(returningValue)
+let GetReturnStatementVoid() = ReturnStatementVoid
 let GetForeach(iterateElement:JVariable,collection : JRightHandValue,innerExpression : JStatement) = Foreach(iterateElement,collection,innerExpression)
 let GetSetField(field : JVariable, valueToAssign : JRightHandValue) = FieldAssignment(field,valueToAssign)
 
@@ -42,3 +47,10 @@ let GetClass(name, constructors, methods, fields) = JClass(name,constructors, me
 ///LIST
 let ListAddTo(listObject,addObject) = RHVStatement(GetCallOnObject(listObject,GetVariable("Add",GetVoidType()),[addObject]))
 let ListRemove(listObject,removeObject) = RHVStatement(GetCallOnObject(listObject,GetVariable("Remove",GetVoidType()),[removeObject]))
+
+///Hashmap
+let MapGetValueType(mapObject:JVariable) = 
+  match mapObject.JType with
+  |Map(k,v) -> v
+  | _ -> raise(NoMapTypeException) 
+let MapGet(mapObject,keyObject) = GetCallOnObject(mapObject,GetVariable("Get",MapGetValueType(mapObject)),[keyObject])

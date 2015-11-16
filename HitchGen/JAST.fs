@@ -1,5 +1,8 @@
 ﻿module JAST
 
+let indent2Lines lines= lines |> List.map (fun l -> "  " + l)
+let indent4Lines lines= lines |> List.map (fun l -> "    " + l)
+
 type JType = 
   | String
   | Bool
@@ -12,13 +15,15 @@ type JType =
   member this.GetBoxedStringRep() = 
     match this with
       | Int -> "Integer"
+      | Bool -> "Boolean"
+      | Void -> "Void"
       | otherwise -> otherwise.GetStringRep()
   member this.GetStringRep() = 
     match this with
       | String -> "String"
-      | Bool -> "Boolean"
+      | Bool -> "boolean"
       | Int -> "Int"
-      | Void -> "Void"
+      | Void -> "void"
       | List inType-> "HashList<" + inType.GetBoxedStringRep() + ">"
       | Map(k,y) -> "HashMap<" + k.GetBoxedStringRep() + "," + y.GetBoxedStringRep() + ">"
       | Dedicated name -> name
@@ -36,6 +41,7 @@ and JStatement =
 | RHVStatement of JRightHandValue
 | EmptyStatement
 | ReturnStatement of JRightHandValue
+| ReturnStatementVoid 
 | Foreach of JVariable * JRightHandValue * JStatement
   member this.GetStringRepresentation() = 
     match this with
@@ -46,13 +52,17 @@ and JStatement =
                               then [] 
                               else sm |> List.map (fun a-> a.GetStringRepresentation())
                                       |> List.reduce (fun a b -> a @ b)
-    | IfThenBlock(c,t,e) -> ["if(" + c.GetStringRepresentation() + "){"]@t.GetStringRepresentation()@["else"] @ e.GetStringRepresentation() @ ["}"]
+    | IfThenBlock(c,t,e) -> ["if(" + c.GetStringRepresentation() + "){"]@ indent2Lines(t.GetStringRepresentation())@["}";"else{"] @ indent2Lines(e.GetStringRepresentation()) @ ["}"]
     | RHVStatement rhv -> [rhv.GetStringRepresentation() + ";"]
     | EmptyStatement -> [";"]
     | ReturnStatement rhv -> ["return " + rhv.GetStringRepresentation() +  ";"]
+    | ReturnStatementVoid ->["return ;"]
     | Foreach(v,col,st) -> ("for(" + v.GetStringRepresentation() + ": " + col.GetStringRepresentation() + "){")::st.GetStringRepresentation() @ [";"]
-
+and JValue = 
+| JTrue
+  member this.GetStringRepresentation(): string = "True"
 and JRightHandValue = 
+| Value of JValue
 | Eval of JVariable
 | FieldEval of JVariable
 | AccessField of JVariable * JVariable
@@ -73,14 +83,13 @@ and JRightHandValue =
     | AccessField(l,r) -> l.GetStringRepresentation() + "." + r.GetStringRepresentation()
     | ConstrCall(jType,vList)-> "new " + jType.GetBoxedStringRep() + "(" + getListedRHVs(vList) + ")"
     | MethodCall(jObj,jMeth,parameters) -> jObj.Name + "." + jMeth.Name + "(" + getListedRHVs(parameters) + ")"
+    | Value(jVal) -> jVal.GetStringRepresentation()
 
 let getListedVariables(parameters : JVariable list) =
       let variablesListed = parameters |> List.map (fun (o:JVariable) -> o.GetStringRepresentation())
       if variablesListed.Length.Equals(0) then "" else variablesListed |> List.reduce (fun a b -> a + ", " + b)
 
 
-let indent2Lines lines= lines |> List.map (fun l -> "  " + l)
-let indent4Lines lines= lines |> List.map (fun l -> "    " + l)
 let emptyLine = [""]
 let doubleEmptyLine = ["";""]
 

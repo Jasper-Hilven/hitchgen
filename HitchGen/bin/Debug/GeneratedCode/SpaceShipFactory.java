@@ -2,6 +2,8 @@ public class SpaceShipFactory{
 
 
   HashList<SpaceShip> generatedSpaceShip;
+  HashMap<SpaceShip,Integer> savedMapping;
+  boolean savedChildren;
   PhysicsControllerFactory physicsControllerFactory;
   UIControllerFactory uIControllerFactory;
   SystemControllerFactory systemControllerFactory;
@@ -29,6 +31,22 @@ public class SpaceShipFactory{
     physicsControllerFactory.DestructPhysicsController(spaceShip.GetPhysicsController());
     uIControllerFactory.DestructUIController(spaceShip.GetUIController());
     systemControllerFactory.DestructSystemController(spaceShip.GetSystemController());
+  }
+  
+  public Int GetIdSpaceShip(Int key){
+    return savedMapping.Get(key);
+  }
+  
+  public void StartSavingSpaceShip(){
+    if(savedMapping){
+      return ;
+    }
+    else{
+      savedMapping= True;
+    }
+    physicsControllerFactory.StartSavingSpaceShip();
+    uIControllerFactory.StartSavingSpaceShip();
+    systemControllerFactory.StartSavingSpaceShip();
   }
 
 

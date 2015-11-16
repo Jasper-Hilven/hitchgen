@@ -2,6 +2,8 @@ public class EngineControllerFactory{
 
 
   HashList<EngineController> generatedEngineController;
+  HashMap<EngineController,Integer> savedMapping;
+  boolean savedChildren;
 
 
   public EngineControllerFactory(){
@@ -17,6 +19,19 @@ public class EngineControllerFactory{
   
   public EngineController DestructEngineController(){
     generatedEngineController.Remove(engineController);
+  }
+  
+  public Int GetIdEngineController(Int key){
+    return savedMapping.Get(key);
+  }
+  
+  public void StartSavingEngineController(){
+    if(savedMapping){
+      return ;
+    }
+    else{
+      savedMapping= True;
+    }
   }
 
 

@@ -2,6 +2,8 @@ public class UIControllerFactory{
 
 
   HashList<UIController> generatedUIController;
+  HashMap<UIController,Integer> savedMapping;
+  boolean savedChildren;
 
 
   public UIControllerFactory(){
@@ -17,6 +19,19 @@ public class UIControllerFactory{
   
   public UIController DestructUIController(){
     generatedUIController.Remove(uIController);
+  }
+  
+  public Int GetIdUIController(Int key){
+    return savedMapping.Get(key);
+  }
+  
+  public void StartSavingUIController(){
+    if(savedMapping){
+      return ;
+    }
+    else{
+      savedMapping= True;
+    }
   }
 
 

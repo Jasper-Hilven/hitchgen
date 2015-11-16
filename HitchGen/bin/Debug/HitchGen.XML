@@ -128,8 +128,34 @@
 <member name="">
 
 </member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
 <member name="T:GenerateFactories">
 
+</member>
+<member name="">
+
+</member>
+<member name="M:JAPI.MapGetValueType(JAST.JVariable)">
+<summary>
+Hashmap
+</summary>
 </member>
 <member name="">
 
@@ -187,6 +213,9 @@ LIST
 <member name="">
 
 </member>
+<member name="">
+
+</member>
 <member name="M:JAPI.GetIfThenBlock(JAST.JRightHandValue,JAST.JStatement)">
 <summary>
  STATEMENT
@@ -205,6 +234,17 @@ LIST
  VARIABLES
 </summary>
 </member>
+<member name="M:JAPI.GetTrue">
+<summary>
+VALUES
+</summary>
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
 <member name="">
 
 </member>
@@ -219,7 +259,25 @@ LIST
  TYPES
 </summary>
 </member>
+<member name="">
+
+</member>
 <member name="T:JAPI">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
 
 </member>
 <member name="">

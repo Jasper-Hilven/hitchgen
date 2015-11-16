@@ -46,11 +46,11 @@ and Operation =
 | Subtr of PropContentLang * PropContentLang
 | Div of PropContentLang * PropContentLang
   member this.GetOperators() = 
-  match this with
-    | Mult(p1,p2) -> [p1;p2]
-    | Add (p1,p2) -> [p1;p2]
-    | Subtr (p1,p2) -> [p1;p2]
-    | Div (p1,p2) -> [p1;p2]
+    match this with
+      | Mult(p1,p2) -> [p1;p2]
+      | Add (p1,p2) -> [p1;p2]
+      | Subtr (p1,p2) -> [p1;p2]
+      | Div (p1,p2) -> [p1;p2]
 
 and BeginValue = 
 |Null
