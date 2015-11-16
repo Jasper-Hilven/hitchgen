@@ -131,6 +131,14 @@
 <member name="T:GenerateFactories">
 
 </member>
+<member name="">
+
+</member>
+<member name="M:JAPI.ListAddTo(JAST.JVariable,JAST.JRightHandValue)">
+<summary>
+LIST
+</summary>
+</member>
 <member name="M:JAPI.GetClass(JAST.JType,Microsoft.FSharp.Collections.FSharpList{JAST.JConstructor},Microsoft.FSharp.Collections.FSharpList{JAST.JMethod},Microsoft.FSharp.Collections.FSharpList{JAST.JVariable})">
 <summary>
  CLASSDECLARATION

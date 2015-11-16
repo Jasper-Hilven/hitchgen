@@ -10,10 +10,13 @@ public class GyroControllerFactory{
 
 
   public GyroController ConstructGyroController(){
-    return new GyroController();
+    GyroController gyroController= new GyroController();
+    generatedGyroController.Add(gyroController);
+    return gyroController;
   }
   
   public GyroController DestructGyroController(){
+    generatedGyroController.Remove(gyroController);
   }
 
 

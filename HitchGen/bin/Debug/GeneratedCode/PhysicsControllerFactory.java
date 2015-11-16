@@ -10,10 +10,13 @@ public class PhysicsControllerFactory{
 
 
   public PhysicsController ConstructPhysicsController(){
-    return new PhysicsController();
+    PhysicsController physicsController= new PhysicsController();
+    generatedPhysicsController.Add(physicsController);
+    return physicsController;
   }
   
   public PhysicsController DestructPhysicsController(){
+    generatedPhysicsController.Remove(physicsController);
   }
 
 

@@ -39,3 +39,6 @@ let GetConstructorDeclaration(jType: JType, parameters: JVariable list, statemen
 let GetClass(name, constructors, methods, fields) = JClass(name,constructors, methods, fields)
 
 
+///LIST
+let ListAddTo(listObject,addObject) = RHVStatement(GetCallOnObject(listObject,GetVariable("Add",GetVoidType()),[addObject]))
+let ListRemove(listObject,removeObject) = RHVStatement(GetCallOnObject(listObject,GetVariable("Remove",GetVoidType()),[removeObject]))

@@ -10,10 +10,13 @@ public class UIControllerFactory{
 
 
   public UIController ConstructUIController(){
-    return new UIController();
+    UIController uIController= new UIController();
+    generatedUIController.Add(uIController);
+    return uIController;
   }
   
   public UIController DestructUIController(){
+    generatedUIController.Remove(uIController);
   }
 
 

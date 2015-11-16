@@ -10,10 +10,13 @@ public class EngineControllerFactory{
 
 
   public EngineController ConstructEngineController(){
-    return new EngineController();
+    EngineController engineController= new EngineController();
+    generatedEngineController.Add(engineController);
+    return engineController;
   }
   
   public EngineController DestructEngineController(){
+    generatedEngineController.Remove(engineController);
   }
 
 

@@ -10,10 +10,13 @@ public class AirControllerFactory{
 
 
   public AirController ConstructAirController(){
-    return new AirController();
+    AirController airController= new AirController();
+    generatedAirController.Add(airController);
+    return airController;
   }
   
   public AirController DestructAirController(){
+    generatedAirController.Remove(airController);
   }
 
 

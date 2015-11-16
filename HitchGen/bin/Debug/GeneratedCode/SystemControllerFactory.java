@@ -25,10 +25,13 @@ public class SystemControllerFactory{
     FuelController fuelController= fuelControllerFactory.ConstructFuelController();
     ElectroController electroController= electroControllerFactory.ConstructElectroController();
     AirController airController= airControllerFactory.ConstructAirController();
-    return new SystemController(engineController, gyroController, fuelController, electroController, airController);
+    SystemController systemController= new SystemController(engineController, gyroController, fuelController, electroController, airController);
+    generatedSystemController.Add(systemController);
+    return systemController;
   }
   
   public SystemController DestructSystemController(){
+    generatedSystemController.Remove(systemController);
     engineControllerFactory.DestructEngineController(systemController.GetEngineController());
     gyroControllerFactory.DestructGyroController(systemController.GetGyroController());
     fuelControllerFactory.DestructFuelController(systemController.GetFuelController());

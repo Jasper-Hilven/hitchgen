@@ -10,10 +10,13 @@ public class ElectroControllerFactory{
 
 
   public ElectroController ConstructElectroController(){
-    return new ElectroController();
+    ElectroController electroController= new ElectroController();
+    generatedElectroController.Add(electroController);
+    return electroController;
   }
   
   public ElectroController DestructElectroController(){
+    generatedElectroController.Remove(electroController);
   }
 
 

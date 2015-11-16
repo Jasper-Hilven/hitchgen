@@ -10,10 +10,13 @@ public class FuelControllerFactory{
 
 
   public FuelController ConstructFuelController(){
-    return new FuelController();
+    FuelController fuelController= new FuelController();
+    generatedFuelController.Add(fuelController);
+    return fuelController;
   }
   
   public FuelController DestructFuelController(){
+    generatedFuelController.Remove(fuelController);
   }
 
 

@@ -19,10 +19,13 @@ public class SpaceShipFactory{
     PhysicsController physicsController= physicsControllerFactory.ConstructPhysicsController();
     UIController uIController= uIControllerFactory.ConstructUIController();
     SystemController systemController= systemControllerFactory.ConstructSystemController();
-    return new SpaceShip(physicsController, uIController, systemController);
+    SpaceShip spaceShip= new SpaceShip(physicsController, uIController, systemController);
+    generatedSpaceShip.Add(spaceShip);
+    return spaceShip;
   }
   
   public SpaceShip DestructSpaceShip(){
+    generatedSpaceShip.Remove(spaceShip);
     physicsControllerFactory.DestructPhysicsController(spaceShip.GetPhysicsController());
     uIControllerFactory.DestructUIController(spaceShip.GetUIController());
     systemControllerFactory.DestructSystemController(spaceShip.GetSystemController());
