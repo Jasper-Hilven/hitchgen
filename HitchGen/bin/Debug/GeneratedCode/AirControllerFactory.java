@@ -21,11 +21,11 @@ public class AirControllerFactory{
     generatedAirControllers.Remove(airController);
   }
   
-  public Int GetIdAirController(Int key){
+  public int GetIdAirController(int key){
     return savedMapping.Get(key);
   }
   
-  public void SaveAirController(){
+  public void SaveAirController(HashMap<String,HashList<String>> saveList){
     if(savedMapping){
       return ;
     }
@@ -33,7 +33,6 @@ public class AirControllerFactory{
       savedMapping = true;
     }
     for(AirController airController: generatedAirControllers){
-    ;
     }
   }
   

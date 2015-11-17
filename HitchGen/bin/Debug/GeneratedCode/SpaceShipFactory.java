@@ -33,22 +33,24 @@ public class SpaceShipFactory{
     systemControllerFactory.DestructSystemController(spaceShip.GetSystemController());
   }
   
-  public Int GetIdSpaceShip(Int key){
+  public int GetIdSpaceShip(int key){
     return savedMapping.Get(key);
   }
   
-  public void SaveSpaceShip(){
+  public void SaveSpaceShip(HashMap<String,HashList<String>> saveList){
     if(savedMapping){
       return ;
     }
     else{
       savedMapping = true;
     }
-    physicsControllerFactory.SavePhysicsController();
-    uIControllerFactory.SaveUIController();
-    systemControllerFactory.SaveSystemController();
+    physicsControllerFactory.SavePhysicsController(saveList);
+    uIControllerFactory.SaveUIController(saveList);
+    systemControllerFactory.SaveSystemController(saveList);
     for(SpaceShip spaceShip: generatedSpaceShips){
-    ;
+      int indexPhysicsController = physicsControllerFactory.GetIdPhysicsController(spaceShip.GetPhysicsController());
+      int indexUIController = uIControllerFactory.GetIdUIController(spaceShip.GetUIController());
+      int indexSystemController = systemControllerFactory.GetIdSystemController(spaceShip.GetSystemController());
     }
   }
   

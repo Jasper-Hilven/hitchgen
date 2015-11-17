@@ -21,11 +21,11 @@ public class GyroControllerFactory{
     generatedGyroControllers.Remove(gyroController);
   }
   
-  public Int GetIdGyroController(Int key){
+  public int GetIdGyroController(int key){
     return savedMapping.Get(key);
   }
   
-  public void SaveGyroController(){
+  public void SaveGyroController(HashMap<String,HashList<String>> saveList){
     if(savedMapping){
       return ;
     }
@@ -33,7 +33,6 @@ public class GyroControllerFactory{
       savedMapping = true;
     }
     for(GyroController gyroController: generatedGyroControllers){
-    ;
     }
   }
   

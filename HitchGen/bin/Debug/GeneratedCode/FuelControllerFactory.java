@@ -21,11 +21,11 @@ public class FuelControllerFactory{
     generatedFuelControllers.Remove(fuelController);
   }
   
-  public Int GetIdFuelController(Int key){
+  public int GetIdFuelController(int key){
     return savedMapping.Get(key);
   }
   
-  public void SaveFuelController(){
+  public void SaveFuelController(HashMap<String,HashList<String>> saveList){
     if(savedMapping){
       return ;
     }
@@ -33,7 +33,6 @@ public class FuelControllerFactory{
       savedMapping = true;
     }
     for(FuelController fuelController: generatedFuelControllers){
-    ;
     }
   }
   

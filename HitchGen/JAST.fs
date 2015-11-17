@@ -57,7 +57,7 @@ and JStatement =
     | EmptyStatement -> [";"]
     | ReturnStatement rhv -> ["return " + rhv.GetStringRepresentation() +  ";"]
     | ReturnStatementVoid ->["return ;"]
-    | Foreach(v,col,st) -> ("for(" + v.GetStringRepresentation() + ": " + col.GetStringRepresentation() + "){")::st.GetStringRepresentation() @ ["}"]
+    | Foreach(v,col,st) -> ("for(" + v.GetStringRepresentation() + ": " + col.GetStringRepresentation() + "){")::indent2Lines(st.GetStringRepresentation()) @ ["}"]
 and JValue = 
 | JTrue
 | JFalse

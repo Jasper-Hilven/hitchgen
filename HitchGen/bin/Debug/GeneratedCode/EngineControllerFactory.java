@@ -21,11 +21,11 @@ public class EngineControllerFactory{
     generatedEngineControllers.Remove(engineController);
   }
   
-  public Int GetIdEngineController(Int key){
+  public int GetIdEngineController(int key){
     return savedMapping.Get(key);
   }
   
-  public void SaveEngineController(){
+  public void SaveEngineController(HashMap<String,HashList<String>> saveList){
     if(savedMapping){
       return ;
     }
@@ -33,7 +33,6 @@ public class EngineControllerFactory{
       savedMapping = true;
     }
     for(EngineController engineController: generatedEngineControllers){
-    ;
     }
   }
   

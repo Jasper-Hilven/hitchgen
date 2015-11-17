@@ -21,11 +21,11 @@ public class UIControllerFactory{
     generatedUIControllers.Remove(uIController);
   }
   
-  public Int GetIdUIController(Int key){
+  public int GetIdUIController(int key){
     return savedMapping.Get(key);
   }
   
-  public void SaveUIController(){
+  public void SaveUIController(HashMap<String,HashList<String>> saveList){
     if(savedMapping){
       return ;
     }
@@ -33,7 +33,6 @@ public class UIControllerFactory{
       savedMapping = true;
     }
     for(UIController uIController: generatedUIControllers){
-    ;
     }
   }
   

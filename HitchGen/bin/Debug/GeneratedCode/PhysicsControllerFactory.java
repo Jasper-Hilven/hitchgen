@@ -21,11 +21,11 @@ public class PhysicsControllerFactory{
     generatedPhysicsControllers.Remove(physicsController);
   }
   
-  public Int GetIdPhysicsController(Int key){
+  public int GetIdPhysicsController(int key){
     return savedMapping.Get(key);
   }
   
-  public void SavePhysicsController(){
+  public void SavePhysicsController(HashMap<String,HashList<String>> saveList){
     if(savedMapping){
       return ;
     }
@@ -33,7 +33,6 @@ public class PhysicsControllerFactory{
       savedMapping = true;
     }
     for(PhysicsController physicsController: generatedPhysicsControllers){
-    ;
     }
   }
   

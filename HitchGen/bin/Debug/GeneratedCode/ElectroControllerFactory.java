@@ -21,11 +21,11 @@ public class ElectroControllerFactory{
     generatedElectroControllers.Remove(electroController);
   }
   
-  public Int GetIdElectroController(Int key){
+  public int GetIdElectroController(int key){
     return savedMapping.Get(key);
   }
   
-  public void SaveElectroController(){
+  public void SaveElectroController(HashMap<String,HashList<String>> saveList){
     if(savedMapping){
       return ;
     }
@@ -33,7 +33,6 @@ public class ElectroControllerFactory{
       savedMapping = true;
     }
     for(ElectroController electroController: generatedElectroControllers){
-    ;
     }
   }
   

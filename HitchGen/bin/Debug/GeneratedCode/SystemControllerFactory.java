@@ -41,24 +41,28 @@ public class SystemControllerFactory{
     airControllerFactory.DestructAirController(systemController.GetAirController());
   }
   
-  public Int GetIdSystemController(Int key){
+  public int GetIdSystemController(int key){
     return savedMapping.Get(key);
   }
   
-  public void SaveSystemController(){
+  public void SaveSystemController(HashMap<String,HashList<String>> saveList){
     if(savedMapping){
       return ;
     }
     else{
       savedMapping = true;
     }
-    engineControllerFactory.SaveEngineController();
-    gyroControllerFactory.SaveGyroController();
-    fuelControllerFactory.SaveFuelController();
-    electroControllerFactory.SaveElectroController();
-    airControllerFactory.SaveAirController();
+    engineControllerFactory.SaveEngineController(saveList);
+    gyroControllerFactory.SaveGyroController(saveList);
+    fuelControllerFactory.SaveFuelController(saveList);
+    electroControllerFactory.SaveElectroController(saveList);
+    airControllerFactory.SaveAirController(saveList);
     for(SystemController systemController: generatedSystemControllers){
-    ;
+      int indexEngineController = engineControllerFactory.GetIdEngineController(systemController.GetEngineController());
+      int indexGyroController = gyroControllerFactory.GetIdGyroController(systemController.GetGyroController());
+      int indexFuelController = fuelControllerFactory.GetIdFuelController(systemController.GetFuelController());
+      int indexElectroController = electroControllerFactory.GetIdElectroController(systemController.GetElectroController());
+      int indexAirController = airControllerFactory.GetIdAirController(systemController.GetAirController());
     }
   }
   

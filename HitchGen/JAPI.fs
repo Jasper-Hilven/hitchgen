@@ -7,6 +7,7 @@ let GetListTypeOf(elementType:JType) = JType.List(elementType)
 let GetMapTypeOf(keyType:JType,valueType:JType) = JType.Map(keyType,valueType)
 let GetFreeType(freeType:string) = Dedicated(freeType)
 let GetVoidType() = JType.Void
+let GetStringType() = JType.String
 let GetBooleanType() = JType.Bool
 let GetIntType() = JType.Int
 ///VALUES

@@ -49,12 +49,18 @@ let GetIdOfChild(controller : Controller) =
   GetMethodDeclaration(GetIdMethodVariable(controller).Name,GetIdMethodVariable(controller).JType,[keyParameter],mContent)
 
 let startSaving(controller : Controller) = 
+  let saveListArgument = GetVariable("saveList",GetMapTypeOf(GetStringType(),GetListTypeOf(GetStringType())))
   let childSavementCalls = GetControllerChildren(controller) |> 
-                           List.map (fun cc -> GetRHVstatement(GetCallOnObject(GetControllerFactoryVariable(cc),StartSavingMethodVariable(cc),[])))
+                           List.map (fun cc -> GetRHVstatement(GetCallOnObject(GetControllerFactoryVariable(cc),StartSavingMethodVariable(cc),[GetVariableEval(saveListArgument)])))
   let returnIfVisited = GetIfThenElseBlock(GetVariableEval(savedMapping(controller)),GetReturnStatementVoid(),GetAssignment(savedMapping(controller),GetTrue()))
-  let saveOneElement(controller) = JStatement.EmptyStatement
+  
+  let saveOneElement(controller) = 
+    let getChildrenElement(childController) = 
+      let getChildIndex = GetCallOnObject(GetControllerFactoryVariable(childController),GetIdMethodVariable(childController),[GetGetterCall(GetControllerVariable(controller),GetControllerVariable(childController))])
+      GetDeclAssignment(GetVariable("index" + GetControllerName(childController) ,GetIntType()),getChildIndex)
+    MultipleStatement(GetControllerChildren(controller) |> List.map getChildrenElement)
   let foreachLoop = GetForeach(GetControllerVariable(controller),GetVariableEval(childrenCollectionVariable(controller)),saveOneElement(controller))
-  GetMethodDeclaration(StartSavingMethodVariable(controller).Name,StartSavingMethodVariable(controller).JType,[],MultipleStatement(returnIfVisited::childSavementCalls@[foreachLoop]))
+  GetMethodDeclaration(StartSavingMethodVariable(controller).Name,StartSavingMethodVariable(controller).JType,[saveListArgument],MultipleStatement(returnIfVisited::childSavementCalls@[foreachLoop]))
 
 let finishSaving(controller: Controller) = 
   let childSavementCalls = GetControllerChildren(controller) |> 
