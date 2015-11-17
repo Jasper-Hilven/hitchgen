@@ -22,7 +22,7 @@ type JType =
     match this with
       | String -> "String"
       | Bool -> "boolean"
-      | Int -> "Int"
+      | Int -> "int"
       | Void -> "void"
       | List inType-> "HashList<" + inType.GetBoxedStringRep() + ">"
       | Map(k,y) -> "HashMap<" + k.GetBoxedStringRep() + "," + y.GetBoxedStringRep() + ">"

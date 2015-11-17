@@ -64,8 +64,6 @@ let finishSaving(controller: Controller) =
 
 let GetFactoryClass(controller) =
   let controllerFactoryType = GetControllerFactoryType(controller)
-  let controllerVariable = GetControllerVariable(controller)
-  let childrenVariables = GetChildVariables(GetControllerChildren(controller))
   let childrenFactoryVariables = GetControllerChildren(controller) |> List.map GetControllerFactoryVariable
   let factoryConstructor =
     let basicConstructor = GetConstructorFieldInitializations(childrenFactoryVariables, controllerFactoryType)
