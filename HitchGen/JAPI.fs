@@ -13,6 +13,7 @@ let GetIntType() = JType.Int
 ///VALUES
 let GetTrue() = Value(JValue.JTrue)
 let GetFalse() = Value(JValue.JFalse)
+let GetStringValue(simpleString) = Value(JValue)
 /// VARIABLES
 let GetVariable(vName:string,vType: JType) = JVariable(vName, vType)
 
@@ -55,3 +56,7 @@ let MapGetValueType(mapObject:JVariable) =
   |Map(k,v) -> v
   | _ -> raise(NoMapTypeException) 
 let MapGet(mapObject,keyObject) = GetCallOnObject(mapObject,GetVariable("Get",MapGetValueType(mapObject)),[keyObject])
+
+///STRING
+let ConcatElementsToString(elements : JRightHandValue list) = 
+  Value(JValue.EmptyString)::elements |> List.reduce (fun a b -> OperatorCall(a,JOperator.ConcatString,b))

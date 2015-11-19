@@ -44,7 +44,7 @@ let destructChildren(controller : Controller) =
   GetMethodDeclaration(destructMethodName(controller),controllerVariable.JType,[],mContent)
 
 let GetIdOfChild(controller : Controller) = 
-  let keyParameter = GetVariable("key",GetIntType())
+  let keyParameter = GetVariable("key",GetTypeOfController(controller))
   let mContent = GetReturnStatement(MapGet(savedMapping(controller),GetVariableEval(keyParameter)))
   GetMethodDeclaration(GetIdMethodVariable(controller).Name,GetIdMethodVariable(controller).JType,[keyParameter],mContent)
 
@@ -55,11 +55,18 @@ let startSaving(controller : Controller) =
   let returnIfVisited = GetIfThenElseBlock(GetVariableEval(savedMapping(controller)),GetReturnStatementVoid(),GetAssignment(savedMapping(controller),GetTrue()))
   
   let saveOneElement(controller) = 
+    let GetIndexVariable(childController) = GetVariable("index" + GetControllerName(childController) ,GetIntType())
     let getChildrenElement(childController) = 
       let getChildIndex = GetCallOnObject(GetControllerFactoryVariable(childController),GetIdMethodVariable(childController),[GetGetterCall(GetControllerVariable(controller),GetControllerVariable(childController))])
-      GetDeclAssignment(GetVariable("index" + GetControllerName(childController) ,GetIntType()),getChildIndex)
+      GetDeclAssignment(GetIndexVariable(childController),getChildIndex)
+    
+    
     MultipleStatement(GetControllerChildren(controller) |> List.map getChildrenElement)
+  
+
+  
   let foreachLoop = GetForeach(GetControllerVariable(controller),GetVariableEval(childrenCollectionVariable(controller)),saveOneElement(controller))
+  
   GetMethodDeclaration(StartSavingMethodVariable(controller).Name,StartSavingMethodVariable(controller).JType,[saveListArgument],MultipleStatement(returnIfVisited::childSavementCalls@[foreachLoop]))
 
 let finishSaving(controller: Controller) = 

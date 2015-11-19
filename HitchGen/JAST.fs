@@ -24,7 +24,7 @@ type JType =
       | Bool -> "boolean"
       | Int -> "int"
       | Void -> "void"
-      | List inType-> "HashList<" + inType.GetBoxedStringRep() + ">"
+      | List inType-> "ArrayList<" + inType.GetBoxedStringRep() + ">"
       | Map(k,y) -> "HashMap<" + k.GetBoxedStringRep() + "," + y.GetBoxedStringRep() + ">"
       | Dedicated name -> name
 
@@ -61,10 +61,12 @@ and JStatement =
 and JValue = 
 | JTrue
 | JFalse
+| EmptyString
   member this.GetStringRepresentation(): string =
     match this with
     |JTrue  -> "true"
     |JFalse -> "false"
+    |EmptyString->"\"\""
 and JRightHandValue = 
 | Value of JValue
 | Eval of JVariable
@@ -72,6 +74,7 @@ and JRightHandValue =
 | AccessField of JVariable * JVariable
 | ConstrCall of JType * (JRightHandValue list)
 | MethodCall of JVariable * JVariable * (JRightHandValue list) 
+| OperatorCall of JRightHandValue * JOperator *JRightHandValue
   member this.GetStringRepresentation() : string= 
     
     let getListedVariables(parameters : JVariable list) =
@@ -88,6 +91,11 @@ and JRightHandValue =
     | ConstrCall(jType,vList)-> "new " + jType.GetBoxedStringRep() + "(" + getListedRHVs(vList) + ")"
     | MethodCall(jObj,jMeth,parameters) -> jObj.Name + "." + jMeth.Name + "(" + getListedRHVs(parameters) + ")"
     | Value(jVal) -> jVal.GetStringRepresentation()
+    | OperatorCall(left,oper,right) -> left.GetStringRepresentation() + oper.GetStringRepresentation() + " " +  right.GetStringRepresentation() 
+and JOperator = 
+| ConcatString
+  member this.GetStringRepresentation() : string= 
+    "+"
 
 let getListedVariables(parameters : JVariable list) =
       let variablesListed = parameters |> List.map (fun (o:JVariable) -> o.GetStringRepresentation())
