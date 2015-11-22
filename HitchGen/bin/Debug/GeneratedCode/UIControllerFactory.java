@@ -1,13 +1,13 @@
 public class UIControllerFactory{
 
 
-  HashList<UIController> generatedUIControllers;
+  ArrayList<UIController> generatedUIControllers;
   HashMap<UIController,Integer> savedMapping;
   boolean savedChildren;
 
 
   public UIControllerFactory(){
-    this.generatedUIControllers = new HashList<UIController>();
+    this.generatedUIControllers = new ArrayList<UIController>();
   }
 
 
@@ -21,11 +21,11 @@ public class UIControllerFactory{
     generatedUIControllers.Remove(uIController);
   }
   
-  public int GetIdUIController(int key){
+  public int GetIdUIController(UIController key){
     return savedMapping.Get(key);
   }
   
-  public void SaveUIController(HashMap<String,HashList<String>> saveList){
+  public void SaveUIController(HashMap<String,ArrayList<String>> saveMap){
     if(savedMapping){
       return ;
     }
@@ -34,6 +34,7 @@ public class UIControllerFactory{
     }
     for(UIController uIController: generatedUIControllers){
     }
+    saveMap.Put("UIController", saveList);
   }
   
   public void FinishSavingUIController(){

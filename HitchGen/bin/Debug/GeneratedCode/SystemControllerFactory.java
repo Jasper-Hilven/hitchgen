@@ -1,7 +1,7 @@
 public class SystemControllerFactory{
 
 
-  HashList<SystemController> generatedSystemControllers;
+  ArrayList<SystemController> generatedSystemControllers;
   HashMap<SystemController,Integer> savedMapping;
   boolean savedChildren;
   EngineControllerFactory engineControllerFactory;
@@ -17,7 +17,7 @@ public class SystemControllerFactory{
     this.fuelControllerFactory = fuelControllerFactory;
     this.electroControllerFactory = electroControllerFactory;
     this.airControllerFactory = airControllerFactory;
-    this.generatedSystemControllers = new HashList<SystemController>();
+    this.generatedSystemControllers = new ArrayList<SystemController>();
   }
 
 
@@ -41,22 +41,22 @@ public class SystemControllerFactory{
     airControllerFactory.DestructAirController(systemController.GetAirController());
   }
   
-  public int GetIdSystemController(int key){
+  public int GetIdSystemController(SystemController key){
     return savedMapping.Get(key);
   }
   
-  public void SaveSystemController(HashMap<String,HashList<String>> saveList){
+  public void SaveSystemController(HashMap<String,ArrayList<String>> saveMap){
     if(savedMapping){
       return ;
     }
     else{
       savedMapping = true;
     }
-    engineControllerFactory.SaveEngineController(saveList);
-    gyroControllerFactory.SaveGyroController(saveList);
-    fuelControllerFactory.SaveFuelController(saveList);
-    electroControllerFactory.SaveElectroController(saveList);
-    airControllerFactory.SaveAirController(saveList);
+    engineControllerFactory.SaveEngineController(saveMap);
+    gyroControllerFactory.SaveGyroController(saveMap);
+    fuelControllerFactory.SaveFuelController(saveMap);
+    electroControllerFactory.SaveElectroController(saveMap);
+    airControllerFactory.SaveAirController(saveMap);
     for(SystemController systemController: generatedSystemControllers){
       int indexEngineController = engineControllerFactory.GetIdEngineController(systemController.GetEngineController());
       int indexGyroController = gyroControllerFactory.GetIdGyroController(systemController.GetGyroController());
@@ -64,6 +64,7 @@ public class SystemControllerFactory{
       int indexElectroController = electroControllerFactory.GetIdElectroController(systemController.GetElectroController());
       int indexAirController = airControllerFactory.GetIdAirController(systemController.GetAirController());
     }
+    saveMap.Put("SystemController", saveList);
   }
   
   public void FinishSavingSystemController(){

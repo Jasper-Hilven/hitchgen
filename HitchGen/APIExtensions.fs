@@ -1,4 +1,5 @@
 ﻿module APIExtensions
+(*
 open JAPI
 open JAST
 
@@ -22,3 +23,4 @@ let GetConstructorFieldInitializations(fieldsToInitialize, constructorType) =
   let content = fieldsToInitialize |> List.map(fun o -> GetSetField(o,GetVariableEval(o))) |> GetCollectStatement
   GetConstructorDeclaration(constructorType,fieldsToInitialize,content)
 
+  *)

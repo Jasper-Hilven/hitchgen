@@ -1,13 +1,13 @@
 public class AirControllerFactory{
 
 
-  HashList<AirController> generatedAirControllers;
+  ArrayList<AirController> generatedAirControllers;
   HashMap<AirController,Integer> savedMapping;
   boolean savedChildren;
 
 
   public AirControllerFactory(){
-    this.generatedAirControllers = new HashList<AirController>();
+    this.generatedAirControllers = new ArrayList<AirController>();
   }
 
 
@@ -21,11 +21,11 @@ public class AirControllerFactory{
     generatedAirControllers.Remove(airController);
   }
   
-  public int GetIdAirController(int key){
+  public int GetIdAirController(AirController key){
     return savedMapping.Get(key);
   }
   
-  public void SaveAirController(HashMap<String,HashList<String>> saveList){
+  public void SaveAirController(HashMap<String,ArrayList<String>> saveMap){
     if(savedMapping){
       return ;
     }
@@ -34,6 +34,7 @@ public class AirControllerFactory{
     }
     for(AirController airController: generatedAirControllers){
     }
+    saveMap.Put("AirController", saveList);
   }
   
   public void FinishSavingAirController(){

@@ -1,10 +1,10 @@
 ﻿module GenerateBasics
-
+(*
 open Controllers
 open JAPI
 open APIExtensions
-
-let GetTypeOfController(controller: Controller) = GetFreeType(GetControllerName(controller))
+let GetNameSpaceOfController(controller :Controller) = "com.jasperhilven.controllers"
+let GetTypeOfController(controller: Controller) = GetFreeType(GetControllerName(controller), GetNameSpaceOfController(controller))
 
 let GetControllerVariable(controller) = GetVariableOfType(GetTypeOfController(controller))
 
@@ -20,3 +20,4 @@ let GetControllerOfClass(controller) =
 
 let controllerFiles = controllers |> List.map GetControllerOfClass
 
+*)

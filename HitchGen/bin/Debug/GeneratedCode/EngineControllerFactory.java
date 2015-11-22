@@ -1,13 +1,13 @@
 public class EngineControllerFactory{
 
 
-  HashList<EngineController> generatedEngineControllers;
+  ArrayList<EngineController> generatedEngineControllers;
   HashMap<EngineController,Integer> savedMapping;
   boolean savedChildren;
 
 
   public EngineControllerFactory(){
-    this.generatedEngineControllers = new HashList<EngineController>();
+    this.generatedEngineControllers = new ArrayList<EngineController>();
   }
 
 
@@ -21,11 +21,11 @@ public class EngineControllerFactory{
     generatedEngineControllers.Remove(engineController);
   }
   
-  public int GetIdEngineController(int key){
+  public int GetIdEngineController(EngineController key){
     return savedMapping.Get(key);
   }
   
-  public void SaveEngineController(HashMap<String,HashList<String>> saveList){
+  public void SaveEngineController(HashMap<String,ArrayList<String>> saveMap){
     if(savedMapping){
       return ;
     }
@@ -34,6 +34,7 @@ public class EngineControllerFactory{
     }
     for(EngineController engineController: generatedEngineControllers){
     }
+    saveMap.Put("EngineController", saveList);
   }
   
   public void FinishSavingEngineController(){

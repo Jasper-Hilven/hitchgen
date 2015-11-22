@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doc>
+<assembly><name>LanguageInterface</name></assembly>
+<members>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="P:LanguageInterface.TokenProvider.ITokenProvider`1.ValueTrue">
+<summary>
+Values
+</summary>
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="M:LanguageInterface.TokenProvider.ITokenProvider`1.Variable(System.String,LanguageInterface.TokenProvider.ILType{`0})">
+<summary>
+VARIABLES
+</summary>
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="M:LanguageInterface.TokenProvider.ITokenProvider`1.TypeList(LanguageInterface.TokenProvider.ILType{`0})">
+<summary>
+TYPES
+</summary>
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="M:LanguageInterface.TokenProvider.ITokenProvider`1.StIfBlock(LanguageInterface.TokenProvider.ILRHV{`0},LanguageInterface.TokenProvider.ILStatement{`0})">
+<summary>
+GETSTATEMENT
+</summary>
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="T:LanguageInterface.TokenProvider">
+
+</member>
+</members>
+</doc>

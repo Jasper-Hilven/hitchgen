@@ -1,7 +1,7 @@
 public class SpaceShipFactory{
 
 
-  HashList<SpaceShip> generatedSpaceShips;
+  ArrayList<SpaceShip> generatedSpaceShips;
   HashMap<SpaceShip,Integer> savedMapping;
   boolean savedChildren;
   PhysicsControllerFactory physicsControllerFactory;
@@ -13,7 +13,7 @@ public class SpaceShipFactory{
     this.physicsControllerFactory = physicsControllerFactory;
     this.uIControllerFactory = uIControllerFactory;
     this.systemControllerFactory = systemControllerFactory;
-    this.generatedSpaceShips = new HashList<SpaceShip>();
+    this.generatedSpaceShips = new ArrayList<SpaceShip>();
   }
 
 
@@ -33,25 +33,26 @@ public class SpaceShipFactory{
     systemControllerFactory.DestructSystemController(spaceShip.GetSystemController());
   }
   
-  public int GetIdSpaceShip(int key){
+  public int GetIdSpaceShip(SpaceShip key){
     return savedMapping.Get(key);
   }
   
-  public void SaveSpaceShip(HashMap<String,HashList<String>> saveList){
+  public void SaveSpaceShip(HashMap<String,ArrayList<String>> saveMap){
     if(savedMapping){
       return ;
     }
     else{
       savedMapping = true;
     }
-    physicsControllerFactory.SavePhysicsController(saveList);
-    uIControllerFactory.SaveUIController(saveList);
-    systemControllerFactory.SaveSystemController(saveList);
+    physicsControllerFactory.SavePhysicsController(saveMap);
+    uIControllerFactory.SaveUIController(saveMap);
+    systemControllerFactory.SaveSystemController(saveMap);
     for(SpaceShip spaceShip: generatedSpaceShips){
       int indexPhysicsController = physicsControllerFactory.GetIdPhysicsController(spaceShip.GetPhysicsController());
       int indexUIController = uIControllerFactory.GetIdUIController(spaceShip.GetUIController());
       int indexSystemController = systemControllerFactory.GetIdSystemController(spaceShip.GetSystemController());
     }
+    saveMap.Put("SpaceShip", saveList);
   }
   
   public void FinishSavingSpaceShip(){

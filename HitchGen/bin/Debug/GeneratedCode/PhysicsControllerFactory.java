@@ -1,13 +1,13 @@
 public class PhysicsControllerFactory{
 
 
-  HashList<PhysicsController> generatedPhysicsControllers;
+  ArrayList<PhysicsController> generatedPhysicsControllers;
   HashMap<PhysicsController,Integer> savedMapping;
   boolean savedChildren;
 
 
   public PhysicsControllerFactory(){
-    this.generatedPhysicsControllers = new HashList<PhysicsController>();
+    this.generatedPhysicsControllers = new ArrayList<PhysicsController>();
   }
 
 
@@ -21,11 +21,11 @@ public class PhysicsControllerFactory{
     generatedPhysicsControllers.Remove(physicsController);
   }
   
-  public int GetIdPhysicsController(int key){
+  public int GetIdPhysicsController(PhysicsController key){
     return savedMapping.Get(key);
   }
   
-  public void SavePhysicsController(HashMap<String,HashList<String>> saveList){
+  public void SavePhysicsController(HashMap<String,ArrayList<String>> saveMap){
     if(savedMapping){
       return ;
     }
@@ -34,6 +34,7 @@ public class PhysicsControllerFactory{
     }
     for(PhysicsController physicsController: generatedPhysicsControllers){
     }
+    saveMap.Put("PhysicsController", saveList);
   }
   
   public void FinishSavingPhysicsController(){

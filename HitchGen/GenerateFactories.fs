@@ -1,12 +1,10 @@
 ﻿module GenerateFactories
 open Controllers
-open JAST
-open JAPI
 open APIExtensions
 open GenerateBasics
-
+(*
 ///METHOD HEADERS
-let GetControllerFactoryType(controller)= GetFreeType(GetControllerName(controller) + "Factory")
+let GetControllerFactoryType(controller)= GetFreeType(GetControllerName(controller) + "Factory", GetNameSpaceOfController(controller) + "factories")
 let GetControllerFactoryVariable(controller)= GetVariableOfType(GetControllerFactoryType(controller))
 let constructMethodName(controller) = "Construct" + GetControllerVariable(controller).JType.GetStringRep()
 let constructMethodVariable(controller) = GetVariable(constructMethodName(controller),GetTypeOfController(controller))
@@ -49,25 +47,23 @@ let GetIdOfChild(controller : Controller) =
   GetMethodDeclaration(GetIdMethodVariable(controller).Name,GetIdMethodVariable(controller).JType,[keyParameter],mContent)
 
 let startSaving(controller : Controller) = 
-  let saveListArgument = GetVariable("saveList",GetMapTypeOf(GetStringType(),GetListTypeOf(GetStringType())))
+  let saveMapArgument = GetVariable("saveMap",GetMapTypeOf(GetStringType(),GetListTypeOf(GetStringType())))
+  let saveList = GetVariable("saveList",GetListTypeOf(GetStringType()))
   let childSavementCalls = GetControllerChildren(controller) |> 
-                           List.map (fun cc -> GetRHVstatement(GetCallOnObject(GetControllerFactoryVariable(cc),StartSavingMethodVariable(cc),[GetVariableEval(saveListArgument)])))
+                           List.map (fun cc -> GetRHVstatement(GetCallOnObject(GetControllerFactoryVariable(cc),StartSavingMethodVariable(cc),[GetVariableEval(saveMapArgument)])))
   let returnIfVisited = GetIfThenElseBlock(GetVariableEval(savedMapping(controller)),GetReturnStatementVoid(),GetAssignment(savedMapping(controller),GetTrue()))
   
+  let getIndexVariable(childController) = GetVariable("index" + GetControllerName(childController) ,GetIntType())
   let saveOneElement(controller) = 
-    let GetIndexVariable(childController) = GetVariable("index" + GetControllerName(childController) ,GetIntType())
     let getChildrenElement(childController) = 
       let getChildIndex = GetCallOnObject(GetControllerFactoryVariable(childController),GetIdMethodVariable(childController),[GetGetterCall(GetControllerVariable(controller),GetControllerVariable(childController))])
-      GetDeclAssignment(GetIndexVariable(childController),getChildIndex)
-    
+      GetDeclAssignment(getIndexVariable(childController),getChildIndex)
+    //let AddSaveSentence(controller) = ListAddTo(GetCallOnThis(GetIdMethodVariable(controller), [GetVariableEval(GetControllerVariable(controller))])) TODO CONTINUE HERE
     
     MultipleStatement(GetControllerChildren(controller) |> List.map getChildrenElement)
-  
-
-  
   let foreachLoop = GetForeach(GetControllerVariable(controller),GetVariableEval(childrenCollectionVariable(controller)),saveOneElement(controller))
-  
-  GetMethodDeclaration(StartSavingMethodVariable(controller).Name,StartSavingMethodVariable(controller).JType,[saveListArgument],MultipleStatement(returnIfVisited::childSavementCalls@[foreachLoop]))
+  let addSavings = GetRHVstatement(MapAddTo(saveMapArgument, GetStringValue(GetControllerName(controller)), GetVariableEval(saveList)))
+  GetMethodDeclaration(StartSavingMethodVariable(controller).Name,StartSavingMethodVariable(controller).JType,[saveMapArgument],MultipleStatement(returnIfVisited::childSavementCalls@[foreachLoop;addSavings]))
 
 let finishSaving(controller: Controller) = 
   let childSavementCalls = GetControllerChildren(controller) |> 
@@ -85,4 +81,4 @@ let GetFactoryClass(controller) =
   let fields = [childrenCollectionVariable(controller);savedMapping(controller); isSavedVariable()] @ childrenFactoryVariables
   GetClass(controllerFactoryType,[factoryConstructor],methods,fields)
 
-let controllerFactoryFiles = controllers |> List.map GetFactoryClass
+let controllerFactoryFiles = controllers |> List.map GetFactoryClass   *)

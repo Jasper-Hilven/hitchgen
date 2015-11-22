@@ -1,13 +1,13 @@
 public class FuelControllerFactory{
 
 
-  HashList<FuelController> generatedFuelControllers;
+  ArrayList<FuelController> generatedFuelControllers;
   HashMap<FuelController,Integer> savedMapping;
   boolean savedChildren;
 
 
   public FuelControllerFactory(){
-    this.generatedFuelControllers = new HashList<FuelController>();
+    this.generatedFuelControllers = new ArrayList<FuelController>();
   }
 
 
@@ -21,11 +21,11 @@ public class FuelControllerFactory{
     generatedFuelControllers.Remove(fuelController);
   }
   
-  public int GetIdFuelController(int key){
+  public int GetIdFuelController(FuelController key){
     return savedMapping.Get(key);
   }
   
-  public void SaveFuelController(HashMap<String,HashList<String>> saveList){
+  public void SaveFuelController(HashMap<String,ArrayList<String>> saveMap){
     if(savedMapping){
       return ;
     }
@@ -34,6 +34,7 @@ public class FuelControllerFactory{
     }
     for(FuelController fuelController: generatedFuelControllers){
     }
+    saveMap.Put("FuelController", saveList);
   }
   
   public void FinishSavingFuelController(){

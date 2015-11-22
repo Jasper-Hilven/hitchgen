@@ -1,13 +1,13 @@
 public class GyroControllerFactory{
 
 
-  HashList<GyroController> generatedGyroControllers;
+  ArrayList<GyroController> generatedGyroControllers;
   HashMap<GyroController,Integer> savedMapping;
   boolean savedChildren;
 
 
   public GyroControllerFactory(){
-    this.generatedGyroControllers = new HashList<GyroController>();
+    this.generatedGyroControllers = new ArrayList<GyroController>();
   }
 
 
@@ -21,11 +21,11 @@ public class GyroControllerFactory{
     generatedGyroControllers.Remove(gyroController);
   }
   
-  public int GetIdGyroController(int key){
+  public int GetIdGyroController(GyroController key){
     return savedMapping.Get(key);
   }
   
-  public void SaveGyroController(HashMap<String,HashList<String>> saveList){
+  public void SaveGyroController(HashMap<String,ArrayList<String>> saveMap){
     if(savedMapping){
       return ;
     }
@@ -34,6 +34,7 @@ public class GyroControllerFactory{
     }
     for(GyroController gyroController: generatedGyroControllers){
     }
+    saveMap.Put("GyroController", saveList);
   }
   
   public void FinishSavingGyroController(){

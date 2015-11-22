@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <doc>
-<assembly><name>HitchGen</name></assembly>
+<assembly><name>JAVAPI</name></assembly>
 <members>
-<member name="T:APIExtensions">
+<member name="">
 
 </member>
 <member name="">
@@ -48,30 +48,36 @@
 
 </member>
 <member name="">
+
+</member>
+<member name="T:ClassPrinter">
 
 </member>
 <member name="">
+
+</member>
+<member name="T:ImportProvider">
 
 </member>
-<member name="T:Controllers">
+<member name="T:JAPI">
 
 </member>
-<member name="T:GenerateBasics">
+<member name="">
 
 </member>
-<member name="T:GenerateFactories">
+<member name="">
 
 </member>
 <member name="">
 
 </member>
-<member name="T:Program">
+<member name="">
 
 </member>
 <member name="">
 
 </member>
-<member name="T:PropertyDefinitions">
+<member name="">
 
 </member>
 <member name="">
@@ -95,7 +101,7 @@
 <member name="">
 
 </member>
-<member name="T:PropertyGeneration">
+<member name="">
 
 </member>
 <member name="">
@@ -275,7 +281,7 @@
 <member name="">
 
 </member>
-<member name="T:PropertyLanguage">
+<member name="T:JAST">
 
 </member>
 </members>

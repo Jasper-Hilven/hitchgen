@@ -1,0 +1,8 @@
+C:\Data\projects\dotnet\HitchGen13\LanguageInterface\bin\Debug\LanguageInterface.exe.config
+C:\Data\projects\dotnet\HitchGen13\LanguageInterface\bin\Debug\LanguageInterface.XML
+C:\Data\projects\dotnet\HitchGen13\LanguageInterface\bin\Debug\LanguageInterface.exe
+C:\Data\projects\dotnet\HitchGen13\LanguageInterface\bin\Debug\LanguageInterface.pdb
+C:\Data\projects\dotnet\HitchGen13\LanguageInterface\bin\Debug\FSharp.Core.dll
+C:\Data\projects\dotnet\HitchGen13\LanguageInterface\bin\Debug\FSharp.Core.xml
+C:\Data\projects\dotnet\HitchGen13\LanguageInterface\obj\Debug\LanguageInterface.exe
+C:\Data\projects\dotnet\HitchGen13\LanguageInterface\obj\Debug\LanguageInterface.pdb

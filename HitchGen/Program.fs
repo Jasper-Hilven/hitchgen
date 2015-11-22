@@ -4,7 +4,7 @@ open System
 
 [<EntryPoint>]
 let main argv = 
-  
+  (*
   let allFiles = controllerFactoryFiles @ controllerFiles
   
   Console.WriteLine(Environment.CurrentDirectory)
@@ -16,5 +16,5 @@ let main argv =
   IO.Directory.CreateDirectory("GeneratedCode") |> ignore
   allFiles |> List.iter (fun (f) -> 
     use fs = IO.File.CreateText("GeneratedCode\\" + f.FileName)
-    f.Print() |> List.iter (fun l -> fs.WriteLine(l)))
+    f.Print() |> List.iter (fun l -> fs.WriteLine(l)))   *)
   0
