@@ -2,7 +2,7 @@
 open PropertyDefinitions
 open PropertyLanguage
 
-exception ControllerNotDefined of string
+exception ControllerNotDefinedException of string
 
 let defs = PropertyDefinitions.propertyValueDefinitions
 
@@ -37,7 +37,7 @@ let ParseProperties(controller) =
       GetOrderRec(langElement)
   
   match propertyValueDefinitions.TryFind(controller) with
-    | None -> raise(ControllerNotDefined("Controller not yet in map")) 
+    | None -> raise(ControllerNotDefinedException("Controller not yet in map")) 
     | Some properties -> 
       let rec ParseAllRemainingProperties(propertyList : (Prop*PropertyValueDef) list) = 
         match propertyList with

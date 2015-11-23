@@ -28,7 +28,8 @@ let GetValueStringRepresentation(jValue: JValue): string =
     |JTrue  -> "true"
     |JFalse -> "false"
     |EmptyString->"\"\""
-    |JString s-> "\"" + s + "\"" 
+    |JString s-> "\"" + s + "\""
+    |JInt i-> i.ToString()
 
 let GetOperatorStringRepresentation(jOperator: JOperator) : string= 
     "+"
@@ -50,7 +51,7 @@ and GetRHVStringRepresentation(rhv: JRightHandValue) =
     | AccessField(l,r) -> GetVariableStringRepresentation(l) + "." + GetVariableStringRepresentation(r)
     | ConstrCall(jType,vList)-> "new " + GetBoxedStringRep(jType) + "(" + getListedRHVs(vList) + ")"
     | OwnMethodCall(jMeth,parameters) -> "this."+ jMeth.Name + "(" + getListedRHVs(parameters) + ")"
-    | MethodCall(jObj,jMeth,parameters) -> jObj.Name + "." + jMeth.Name + "(" + getListedRHVs(parameters) + ")"
+    | MethodCall(jObj,jMeth,parameters) -> GetRHVStringRepresentation(jObj) + "." + jMeth.Name + "(" + getListedRHVs(parameters) + ")"
     | Value(jVal) -> GetValueStringRepresentation(jVal)
     | OperatorCall(left,oper,right) -> GetRHVStringRepresentation(left) + GetOperatorStringRepresentation(oper) + " " +  GetRHVStringRepresentation(right)
 
@@ -83,14 +84,7 @@ let printConstructor(jConstructor: JConstructor) =
   let ending = ["}"]
   declaration:: indentedStatements @  ending
 
-
 let GetClassName(jClass: JClass) =   GetBoxedStringRep(jClass.JType) + ".java"
-
-
-
-
-
-
 
 let printClass(jClass: JClass) = 
     let classDefLine =  "public class " + GetBoxedStringRep(jClass.JType) + "{"
@@ -98,7 +92,7 @@ let printClass(jClass: JClass) =
     let fieldDeclarations = 
       if jClass.Fields.Length.Equals(0) then [] else List.map printField jClass.Fields
       |> indent2Lines
-    let constructorsPrinted = jClass.Vonstructors |> List.map (fun m -> printConstructor(m))
+    let constructorsPrinted = jClass.Constructors |> List.map (fun m -> printConstructor(m))
     let constructorLines = 
       if(constructorsPrinted.Length = 0) then [] else constructorsPrinted |> List.reduce(fun a b -> a @ [""] @ b)
       |> indent2Lines

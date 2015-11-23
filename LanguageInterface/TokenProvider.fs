@@ -3,18 +3,21 @@
 module TokenProvider = 
   type ILanguage = 
     abstract member LanguageName: string
-  
-  type ILType<'L> = interface end
-  type ILModule<'L> = interface end
-  type ILValue<'L> = 
+  and ILType<'L> = interface end
+
+  and ILModule<'L> = interface end
+
+  and ILValue<'L> = 
     abstract member Eval: ILRHV<'L>
+
   and ILRHV<'L> = 
     abstract member Statement: ILStatement<'L>
-  
+
   and ILVariable<'L> = 
     abstract member Eval: ILRHV<'L>
   and ILStatement<'L> = interface end
   and ILMethod<'L> = interface end
+  and ILConstructor<'L> = interface end
   and ILClass<'L> = interface end
   and ITokenProvider<'L> = 
     ///TYPES
@@ -25,7 +28,8 @@ module TokenProvider =
     abstract member TypeString: ILType<'L>
     abstract member TypeBool: ILType<'L>
     abstract member TypeInt: ILType<'L>
-    
+    abstract member Type2String: ILType<'L> -> string
+
     ///Values
     abstract member ValueTrue: ILValue<'L>
     abstract member ValueFalse: ILValue<'L>
@@ -43,15 +47,15 @@ module TokenProvider =
     abstract member StReturnVoid: ILStatement<'L>
     abstract member StForeach: ILVariable<'L> -> ILRHV<'L> -> ILStatement<'L> -> ILStatement<'L>
     //OO
-    abstract member OoAccessField: ILVariable<'L>->ILVariable<'L>-> ILRHV<'L>
+    abstract member OoAccessField: ILRHV<'L>->ILVariable<'L>-> ILRHV<'L>
     abstract member OoConstructorCall: ILType<'L> -> (ILRHV<'L> list) -> ILRHV<'L>
     abstract member OoThis: ILVariable<'L>
     abstract member OoMethodCall: ILRHV<'L> -> ILVariable<'L> -> ILRHV<'L> list -> ILRHV<'L>
   
     //Class
     abstract member ClMethodDecl: ILVariable<'L> -> (ILVariable<'L> list) -> ILStatement<'L> -> ILMethod<'L>
-    abstract member ClConstructorDecl: (ILVariable<'L> list) ->ILMethod<'L>
-    abstract member ClClassDecl: ILType<'L> -> ILMethod<'L> list -> ILMethod<'L> list -> ILVariable<'L> list -> ILClass<'L>
+    abstract member ClConstructorDecl: ILType<'L> -> (ILVariable<'L> list) -> ILStatement<'L> -> ILConstructor<'L>
+    abstract member ClClassDecl: ILType<'L> -> ILConstructor<'L> list -> ILMethod<'L> list -> ILVariable<'L> list -> ILClass<'L>
   
   
   type IClassResult = 

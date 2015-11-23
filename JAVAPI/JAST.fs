@@ -4,13 +4,14 @@ open LanguageInterface.TokenProvider
 type ILJava = 
   interface ILanguage with
     member this.LanguageName = "Java"
-
+  
 open LanguageInterface.TokenProvider
 type JModule = 
   | SPath of string
   member this.Print = match this with | SPath s -> s
   interface ILModule<ILJava>
-type  JType = 
+
+type JType = 
   | String
   | Bool
   | Int
@@ -64,8 +65,6 @@ and JRightHandValue =
 and JOperator = 
   | ConcatString
 
-
-
 let emptyLine = [""]
 let doubleEmptyLine = ["";""]
 
@@ -74,15 +73,16 @@ type JMethod(name:string,jType : JType, parameters : JVariable list,statements :
   member public this.JType = jType
   member public this.Parameters = parameters
   member public this.Statements = statements
-
+  interface ILMethod<ILJava>
 type JConstructor(jType : JType, parameters: JVariable list, statements : JStatement) = 
   member this.JType = jType
   member this.Parameters = parameters
   member this.Statements = statements
-
+  interface ILConstructor<ILJava>
 
 type JClass(jType:JType,constructors : JConstructor list, methods: JMethod list, fields : JVariable list) = 
   member this.JType = jType
-  member this.Vonstructors = constructors
+  member this.Constructors = constructors
   member this.Methods = methods
   member this.Fields = fields
+  interface ILClass<ILJava>

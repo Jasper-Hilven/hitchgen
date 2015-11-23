@@ -57,6 +57,18 @@
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\JAVAPI\JAVAPI.fsproj">
+      <Name>JAVAPI</Name>
+      <Project>{a18faac2-8fde-4198-89e6-dd0598aefffe}</Project>
+      <Private>True</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\LanguageInterface\LanguageInterface.fsproj">
+      <Name>LanguageInterface</Name>
+      <Project>{fab30a83-49ac-41b1-9938-b38aa0e93efe}</Project>
+      <Private>True</Private>
+    </ProjectReference>
+  </ItemGroup>
   <PropertyGroup>
     <MinimumVisualStudioVersion Condition="'$(MinimumVisualStudioVersion)' == ''">11</MinimumVisualStudioVersion>
   </PropertyGroup>

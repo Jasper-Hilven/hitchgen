@@ -2,6 +2,8 @@
 open JAST
 open LanguageInterface.TokenProvider
 
+exception StringRepNotExistingExisting of string
+
 
 type JProvider() = 
   interface ITokenProvider<ILJava> with
@@ -13,7 +15,10 @@ type JProvider() =
     member this.TypeString= JType.String :> ILType<ILJava>
     member this.TypeBool= JType.Bool   :> ILType<ILJava>
     member this.TypeInt= JType.Int    :> ILType<ILJava>
-    
+    member this.Type2String (t:ILType<ILJava>) : string=
+      match (t :?> JType) with
+        | JType.Dedicated (n,m) -> n
+        | _ -> raise(StringRepNotExistingExisting("only allowed for dedicated types"))
     member this.ValueTrue= JValue.JTrue :> ILValue<ILJava>
     member this.ValueFalse= JValue.JFalse :> ILValue<ILJava>
     member this.ValueString sVal = JValue.JString(sVal) :> ILValue<ILJava>
@@ -40,14 +45,17 @@ type JProvider() =
     member this.ClMethodDecl (decl: ILVariable<ILJava>) (jParams: ILVariable<ILJava> list) (jStatements: ILStatement<ILJava>) =
       let declV = decl :?> JVariable
       new JMethod(declV.Name ,declV.JType ,jParams|> List.map (fun o -> o :?> JVariable),jStatements :?> JStatement) :> ILMethod<ILJava>
-    member this.ClConstructorDecl: (ILVariable<ILJava> list) :> ILMethod<ILJava>
-    member this.ClClassDecl: ILType<ILJava> -> ILMethod<ILJava> list -> ILMethod<ILJava> list -> ILVariable<ILJava> list :> ILClass<ILJava>
+    member this.ClConstructorDecl (jType : ILType<ILJava>) (jParams: ILVariable<ILJava> list) (jStatements: ILStatement<ILJava>) = 
+      new JConstructor(jType :?> JType, jParams|> List.map (fun o -> o :?> JVariable), jStatements :?> JStatement) :> ILConstructor<ILJava>
+    member this.ClClassDecl (jType: ILType<ILJava>) (constructors: ILConstructor<ILJava> list) (methods: ILMethod<ILJava> list)  (fields: ILVariable<ILJava> list)=
+      new JClass(jType:?>JType,constructors |> List.map (fun o -> o :?> JConstructor), methods |> List.map (fun o -> o :?> JMethod),fields |> List.map (fun o -> o :?> JVariable)) :> ILClass<ILJava>
   
   
-  type ClassResult = 
-    abstract member ClassPath: string
-    abstract member ClassContent : string list
-    abstract member ClassName: string
+  type ClassResult(classPath, classContent, className: string) = 
+    interface IClassResult with
+      member this.ClassPath = classPath
+      member this.ClassContent = classContent
+      member this.ClassName = className
   
   type IClassPrinter<'L> = 
-    abstract member PrintAllClasses: ILClass<'L> list -> string -> ClassResult list     
+    abstract member PrintAllClasses: ILClass<'L> list -> string -> ClassResult list
