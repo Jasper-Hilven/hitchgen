@@ -1,8 +1,14 @@
 ﻿namespace LanguageInterface
 
-module TokenProvider = 
+module ImplementationInterface = 
   type ILanguage = 
     abstract member LanguageName: string
+  type ILJava = 
+    interface ILanguage with
+      member this.LanguageName = "Java"
+
+  
+  
   and ILType<'L> = interface end
 
   and ILModule<'L> = interface end
@@ -12,9 +18,14 @@ module TokenProvider =
 
   and ILRHV<'L> = 
     abstract member Statement: ILStatement<'L>
-
+  and ILFieldAccess<'L> =
+    abstract member On: ILRHV<'L>
+    abstract member Field: ILVariable<'L>
+    abstract member Eval:ILRHV<'L>
   and ILVariable<'L> = 
     abstract member Eval: ILRHV<'L>
+    abstract member Name: string
+    abstract member LType: ILType<'L>
   and ILStatement<'L> = interface end
   and ILMethod<'L> = interface end
   and ILConstructor<'L> = interface end
@@ -47,7 +58,7 @@ module TokenProvider =
     abstract member StReturnVoid: ILStatement<'L>
     abstract member StForeach: ILVariable<'L> -> ILRHV<'L> -> ILStatement<'L> -> ILStatement<'L>
     //OO
-    abstract member OoAccessField: ILRHV<'L>->ILVariable<'L>-> ILRHV<'L>
+    abstract member OoAccessField: ILRHV<'L>->ILVariable<'L>-> ILFieldAccess<'L>
     abstract member OoConstructorCall: ILType<'L> -> (ILRHV<'L> list) -> ILRHV<'L>
     abstract member OoThis: ILVariable<'L>
     abstract member OoMethodCall: ILRHV<'L> -> ILVariable<'L> -> ILRHV<'L> list -> ILRHV<'L>
@@ -56,7 +67,9 @@ module TokenProvider =
     abstract member ClMethodDecl: ILVariable<'L> -> (ILVariable<'L> list) -> ILStatement<'L> -> ILMethod<'L>
     abstract member ClConstructorDecl: ILType<'L> -> (ILVariable<'L> list) -> ILStatement<'L> -> ILConstructor<'L>
     abstract member ClClassDecl: ILType<'L> -> ILConstructor<'L> list -> ILMethod<'L> list -> ILVariable<'L> list -> ILClass<'L>
-  
+    //Module
+    abstract member ModuleRoot : ILModule<'L>
+    abstract member ModuleChild: ILModule<'L> -> string -> ILModule<'L>
   
   type IClassResult = 
     abstract member ClassPath: string
@@ -65,3 +78,5 @@ module TokenProvider =
   
   type IClassPrinter<'L> = 
     abstract member PrintAllClasses: ILClass<'L> list -> string -> IClassResult list
+
+  

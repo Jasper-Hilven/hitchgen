@@ -29,3 +29,8 @@ let controllerHierarchy = Map.empty
 
 let GetControllerChildren parent = if controllerHierarchy.ContainsKey(parent) then controllerHierarchy.Item(parent) else [] 
 let GetControllerName controller = controllerNames.Item(controller)
+
+
+type Controller with
+  member this.Name = GetControllerName(this)
+  member this.Children = GetControllerChildren(this)

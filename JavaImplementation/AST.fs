@@ -1,14 +1,11 @@
-﻿module JAST
-open LanguageInterface.TokenProvider
+﻿namespace JavaImplementation
+module JAST
+open LanguageInterface.ImplementationInterface
 
-type ILJava = 
-  interface ILanguage with
-    member this.LanguageName = "Java"
   
-open LanguageInterface.TokenProvider
 type JModule = 
-  | SPath of string
-  member this.Print = match this with | SPath s -> s
+  | Root
+  | Child of JModule * string
   interface ILModule<ILJava>
 
 type JType = 
@@ -27,7 +24,8 @@ type JVariable(name:string, jVType:JType) =
   member public this.JType = jVType
   interface ILVariable<ILJava> with
     member this.Eval = JRightHandValue.Eval(this) :> ILRHV<ILJava>
-
+    member this.Name = name
+    member this.LType = this.JType :> ILType<ILJava>
   
 and JStatement = 
   | DeclarationAssignment of JVariable * JRightHandValue
@@ -54,13 +52,14 @@ and JRightHandValue =
   | Value of JValue
   | Eval of JVariable
   | FieldEval of JVariable
-  | AccessField of JVariable * JVariable
+  | AccessField of JRightHandValue * JVariable
   | ConstrCall of JType * (JRightHandValue list)
   | MethodCall of JRightHandValue * JVariable * (JRightHandValue list) 
   | OwnMethodCall of JVariable * (JRightHandValue list)
   | OperatorCall of JRightHandValue * JOperator *JRightHandValue
   interface ILRHV<ILJava> with
     member this.Statement = JStatement.RHVStatement(this) :> ILStatement<ILJava>
+
 
 and JOperator = 
   | ConcatString

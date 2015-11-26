@@ -1,6 +1,5 @@
 ﻿module GenerateFactories
 open Controllers
-open APIExtensions
 open GenerateBasics
 (*
 ///METHOD HEADERS

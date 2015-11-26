@@ -1,5 +1,7 @@
-﻿module ImportProvider
-open JAST
+﻿namespace JavaImplementation
+module ImportProvider = 0
+
+(*open JAST
 let rec GetImports(jType: JType) : string list = 
     match jType with
       | String -> []
@@ -8,4 +10,9 @@ let rec GetImports(jType: JType) : string list =
       | Void -> []
       | List iType -> "java.util.ArrayList"::GetImports(iType)
       | Map(k,v)-> "java.util.HashMap"::GetImports(k) @ GetImports(v)
-      | Dedicated(name, import) -> [import.Print]
+      | Dedicated(name, import) -> 
+        match import with
+            | Root -> ""
+            | Child (m,n) -> 
+
+            *)

@@ -7,14 +7,17 @@ Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "HitchGen", "HitchGen\HitchG
 	ProjectSection(ProjectDependencies) = postProject
 		{FAB30A83-49AC-41B1-9938-B38AA0E93EFE} = {FAB30A83-49AC-41B1-9938-B38AA0E93EFE}
 		{A18FAAC2-8FDE-4198-89E6-DD0598AEFFFE} = {A18FAAC2-8FDE-4198-89E6-DD0598AEFFFE}
+		{3DA238F1-9A81-4FE6-9411-DB4F759E2285} = {3DA238F1-9A81-4FE6-9411-DB4F759E2285}
 	EndProjectSection
 EndProject
-Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "JAVAPI", "JAVAPI\JAVAPI.fsproj", "{A18FAAC2-8FDE-4198-89E6-DD0598AEFFFE}"
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "JavaImplementation", "JavaImplementation\JavaImplementation.fsproj", "{A18FAAC2-8FDE-4198-89E6-DD0598AEFFFE}"
 	ProjectSection(ProjectDependencies) = postProject
 		{FAB30A83-49AC-41B1-9938-B38AA0E93EFE} = {FAB30A83-49AC-41B1-9938-B38AA0E93EFE}
 	EndProjectSection
 EndProject
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "LanguageInterface", "LanguageInterface\LanguageInterface.fsproj", "{FAB30A83-49AC-41B1-9938-B38AA0E93EFE}"
+EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "ApplicationDomain", "ApplicationDomain\ApplicationDomain.fsproj", "{3DA238F1-9A81-4FE6-9411-DB4F759E2285}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -34,6 +37,10 @@ Global
 		{FAB30A83-49AC-41B1-9938-B38AA0E93EFE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FAB30A83-49AC-41B1-9938-B38AA0E93EFE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FAB30A83-49AC-41B1-9938-B38AA0E93EFE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3DA238F1-9A81-4FE6-9411-DB4F759E2285}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3DA238F1-9A81-4FE6-9411-DB4F759E2285}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3DA238F1-9A81-4FE6-9411-DB4F759E2285}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3DA238F1-9A81-4FE6-9411-DB4F759E2285}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -2,7 +2,7 @@
 <doc>
 <assembly><name>LanguageInterface</name></assembly>
 <members>
-<member name="">
+<member name="T:LanguageInterface.API">
 
 </member>
 <member name="">
@@ -20,7 +20,10 @@
 <member name="">
 
 </member>
-<member name="P:LanguageInterface.TokenProvider.ITokenProvider`1.ValueTrue">
+<member name="">
+
+</member>
+<member name="P:LanguageInterface.ImplementationInterface.ITokenProvider`1.ValueTrue">
 <summary>
 Values
 </summary>
@@ -46,7 +49,10 @@ Values
 <member name="">
 
 </member>
-<member name="M:LanguageInterface.TokenProvider.ITokenProvider`1.Variable(System.String,LanguageInterface.TokenProvider.ILType{`0})">
+<member name="">
+
+</member>
+<member name="M:LanguageInterface.ImplementationInterface.ITokenProvider`1.Variable(System.String,LanguageInterface.ImplementationInterface.ILType{`0})">
 <summary>
 VARIABLES
 </summary>
@@ -60,7 +66,7 @@ VARIABLES
 <member name="">
 
 </member>
-<member name="M:LanguageInterface.TokenProvider.ITokenProvider`1.TypeList(LanguageInterface.TokenProvider.ILType{`0})">
+<member name="M:LanguageInterface.ImplementationInterface.ITokenProvider`1.TypeList(LanguageInterface.ImplementationInterface.ILType{`0})">
 <summary>
 TYPES
 </summary>
@@ -80,7 +86,7 @@ TYPES
 <member name="">
 
 </member>
-<member name="M:LanguageInterface.TokenProvider.ITokenProvider`1.StIfBlock(LanguageInterface.TokenProvider.ILRHV{`0},LanguageInterface.TokenProvider.ILStatement{`0})">
+<member name="M:LanguageInterface.ImplementationInterface.ITokenProvider`1.StIfBlock(LanguageInterface.ImplementationInterface.ILRHV{`0},LanguageInterface.ImplementationInterface.ILStatement{`0})">
 <summary>
 GETSTATEMENT
 </summary>
@@ -157,7 +163,34 @@ GETSTATEMENT
 <member name="">
 
 </member>
-<member name="T:LanguageInterface.TokenProvider">
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="T:LanguageInterface.ImplementationInterface">
 
 </member>
 </members>

@@ -46,11 +46,7 @@
     <Reference Include="System.Numerics" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Controllers.fs" />
-    <Compile Include="PropertyLanguage.fs" />
-    <Compile Include="PropertyDefinitions.fs" />
     <Compile Include="PropertyGeneration.fs" />
-    <Compile Include="APIExtensions.fs" />
     <Compile Include="GenerateBasics.fs" />
     <Compile Include="GenerateFactories.fs" />
     <Compile Include="Program.fs" />
@@ -58,8 +54,13 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\JAVAPI\JAVAPI.fsproj">
-      <Name>JAVAPI</Name>
+    <ProjectReference Include="..\ApplicationDomain\ApplicationDomain.fsproj">
+      <Name>ApplicationDomain</Name>
+      <Project>{3da238f1-9a81-4fe6-9411-db4f759e2285}</Project>
+      <Private>True</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\JavaImplementation\JavaImplementation.fsproj">
+      <Name>JavaImplementation</Name>
       <Project>{a18faac2-8fde-4198-89e6-dd0598aefffe}</Project>
       <Private>True</Private>
     </ProjectReference>

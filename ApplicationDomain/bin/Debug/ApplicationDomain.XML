@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <doc>
-<assembly><name>LanguageInterface</name></assembly>
+<assembly><name>ApplicationDomain</name></assembly>
 <members>
 <member name="">
 
@@ -20,11 +20,6 @@
 <member name="">
 
 </member>
-<member name="P:LanguageInterface.TokenProvider.ITokenProvider`1.ValueTrue">
-<summary>
-Values
-</summary>
-</member>
 <member name="">
 
 </member>
@@ -46,25 +41,6 @@ Values
 <member name="">
 
 </member>
-<member name="M:LanguageInterface.TokenProvider.ITokenProvider`1.Variable(System.String,LanguageInterface.TokenProvider.ILType{`0})">
-<summary>
-VARIABLES
-</summary>
-</member>
-<member name="">
-
-</member>
-<member name="">
-
-</member>
-<member name="">
-
-</member>
-<member name="M:LanguageInterface.TokenProvider.ITokenProvider`1.TypeList(LanguageInterface.TokenProvider.ILType{`0})">
-<summary>
-TYPES
-</summary>
-</member>
 <member name="">
 
 </member>
@@ -80,12 +56,13 @@ TYPES
 <member name="">
 
 </member>
-<member name="M:LanguageInterface.TokenProvider.ITokenProvider`1.StIfBlock(LanguageInterface.TokenProvider.ILRHV{`0},LanguageInterface.TokenProvider.ILStatement{`0})">
-<summary>
-GETSTATEMENT
-</summary>
+<member name="T:Controllers">
+
 </member>
 <member name="">
+
+</member>
+<member name="T:PropertyDefinitions">
 
 </member>
 <member name="">
@@ -157,7 +134,115 @@ GETSTATEMENT
 <member name="">
 
 </member>
-<member name="T:LanguageInterface.TokenProvider">
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="T:PropertyLanguage">
 
 </member>
 </members>

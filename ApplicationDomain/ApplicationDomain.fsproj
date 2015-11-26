@@ -5,14 +5,14 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>fab30a83-49ac-41b1-9938-b38aa0e93efe</ProjectGuid>
+    <ProjectGuid>3da238f1-9a81-4fe6-9411-db4f759e2285</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>LanguageInterface</RootNamespace>
-    <AssemblyName>LanguageInterface</AssemblyName>
+    <RootNamespace>ApplicationDomain</RootNamespace>
+    <AssemblyName>ApplicationDomain</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <TargetFSharpCoreVersion>4.3.1.0</TargetFSharpCoreVersion>
-    <Name>LanguageInterface</Name>
+    <Name>ApplicationDomain</Name>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -23,7 +23,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <WarningLevel>3</WarningLevel>
     <PlatformTarget>AnyCPU</PlatformTarget>
-    <DocumentationFile>bin\Debug\LanguageInterface.XML</DocumentationFile>
+    <DocumentationFile>bin\Debug\ApplicationDomain.XML</DocumentationFile>
     <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
@@ -34,7 +34,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <WarningLevel>3</WarningLevel>
     <PlatformTarget>AnyCPU</PlatformTarget>
-    <DocumentationFile>bin\Release\LanguageInterface.XML</DocumentationFile>
+    <DocumentationFile>bin\Release\ApplicationDomain.XML</DocumentationFile>
     <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
@@ -48,8 +48,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <Compile Include="ImplementationInterface.fs" />
-    <Compile Include="API.fs" />
+    <Compile Include="Controllers.fs" />
+    <Compile Include="PropertyLanguage.fs" />
+    <Compile Include="PropertyDefinitions.fs" />
   </ItemGroup>
   <PropertyGroup>
     <MinimumVisualStudioVersion Condition="'$(MinimumVisualStudioVersion)' == ''">11</MinimumVisualStudioVersion>

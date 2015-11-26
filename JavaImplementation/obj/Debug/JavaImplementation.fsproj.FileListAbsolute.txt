@@ -1,0 +1,1 @@
+C:\Data\projects\dotnet\HitchGen13\JavaImplementation\obj\Debug\JavaImplementation.fsprojResolveAssemblyReference.cache
