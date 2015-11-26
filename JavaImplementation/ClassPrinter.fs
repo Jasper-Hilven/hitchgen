@@ -1,7 +1,8 @@
 ﻿namespace JavaImplementation
-module JClassPrinter
-open JAST
+open JavaImplementation.AST
 open LanguageInterface.ImplementationInterface
+
+module JClassPrinter =
 
 type JClassResult(classPath, classContent, className: string) = 
   interface IClassResult with
@@ -52,12 +53,12 @@ type JClassPrinter() =
     let rHVsListed =  parameters |> List.map (fun o -> printRHV(o))
     if rHVsListed.Length.Equals(0) then "" else rHVsListed |> List.reduce (fun a b -> a + ", " + b)
 
-
+  and printAccessField(af: JAccessField)= printRHV((af :> ILFieldAccess<ILJava>).On:?> JRightHandValue) + "." + printVariable((af :> ILFieldAccess<ILJava>).Field :?> JVariable) 
   and printRHV(rhv: JRightHandValue) = 
     match rhv with
       | Eval v-> v.Name
       | FieldEval v-> "this." + v.Name
-      | AccessField(l,r) -> printRHV(l) + "." + printVariable(r)
+      | AccessField(aF) -> printAccessField(aF)
       | ConstrCall(jType,vList)-> "new " + printTypeBoxed(jType) + "(" + printListedRHVs(vList) + ")"
       | OwnMethodCall(jMeth,parameters) -> "this."+ jMeth.Name + "(" + printListedRHVs(parameters) + ")"
       | MethodCall(jObj,jMeth,parameters) -> printRHV(jObj) + "." + jMeth.Name + "(" + printListedRHVs(parameters) + ")"

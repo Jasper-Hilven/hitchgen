@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <doc>
-<assembly><name>LanguageInterface</name></assembly>
+<assembly><name>JavaImplementation</name></assembly>
 <members>
 <member name="">
 
@@ -197,31 +197,11 @@
 <member name="">
 
 </member>
-<member name="T:LanguageInterface.API">
-
-</member>
 <member name="">
 
 </member>
 <member name="">
 
-</member>
-<member name="">
-
-</member>
-<member name="">
-
-</member>
-<member name="">
-
-</member>
-<member name="">
-
-</member>
-<member name="P:LanguageInterface.ImplementationInterface.ITokenProvider`1.ValueTrue">
-<summary>
-Values
-</summary>
 </member>
 <member name="">
 
@@ -247,11 +227,6 @@ Values
 <member name="">
 
 </member>
-<member name="M:LanguageInterface.ImplementationInterface.ITokenProvider`1.Variable(System.String,LanguageInterface.ImplementationInterface.ILType{`0})">
-<summary>
-VARIABLES
-</summary>
-</member>
 <member name="">
 
 </member>
@@ -260,11 +235,6 @@ VARIABLES
 </member>
 <member name="">
 
-</member>
-<member name="M:LanguageInterface.ImplementationInterface.ITokenProvider`1.TypeList(LanguageInterface.ImplementationInterface.ILType{`0})">
-<summary>
-TYPES
-</summary>
 </member>
 <member name="">
 
@@ -281,10 +251,29 @@ TYPES
 <member name="">
 
 </member>
-<member name="M:LanguageInterface.ImplementationInterface.ITokenProvider`1.StIfBlock(LanguageInterface.ImplementationInterface.ILRHV{`0},LanguageInterface.ImplementationInterface.ILStatement{`0})">
-<summary>
-GETSTATEMENT
-</summary>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="T:JavaImplementation.AST">
+
+</member>
+<member name="T:JavaImplementation.ImportProvider">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
 </member>
 <member name="">
 
@@ -385,7 +374,43 @@ GETSTATEMENT
 <member name="">
 
 </member>
-<member name="T:LanguageInterface.ImplementationInterface">
+<member name="T:JavaImplementation.JAPI">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="T:JavaImplementation.JClassPrinter">
 
 </member>
 </members>

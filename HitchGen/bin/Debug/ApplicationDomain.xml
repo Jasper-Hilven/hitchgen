@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <doc>
-<assembly><name>LanguageInterface</name></assembly>
+<assembly><name>ApplicationDomain</name></assembly>
 <members>
 <member name="">
 
@@ -56,133 +56,13 @@
 <member name="">
 
 </member>
-<member name="">
-
-</member>
-<member name="">
-
-</member>
-<member name="">
-
-</member>
-<member name="">
-
-</member>
-<member name="">
-
-</member>
-<member name="">
-
-</member>
-<member name="">
-
-</member>
-<member name="">
-
-</member>
-<member name="">
-
-</member>
-<member name="">
-
-</member>
-<member name="">
-
-</member>
-<member name="">
-
-</member>
-<member name="">
-
-</member>
-<member name="">
-
-</member>
-<member name="">
-
-</member>
-<member name="">
-
-</member>
-<member name="">
-
-</member>
-<member name="">
-
-</member>
-<member name="">
-
-</member>
-<member name="">
-
-</member>
-<member name="">
-
-</member>
-<member name="">
+<member name="T:Controllers">
 
 </member>
 <member name="">
 
 </member>
-<member name="">
-
-</member>
-<member name="">
-
-</member>
-<member name="">
-
-</member>
-<member name="">
-
-</member>
-<member name="">
-
-</member>
-<member name="">
-
-</member>
-<member name="">
-
-</member>
-<member name="">
-
-</member>
-<member name="">
-
-</member>
-<member name="">
-
-</member>
-<member name="">
-
-</member>
-<member name="">
-
-</member>
-<member name="">
-
-</member>
-<member name="">
-
-</member>
-<member name="">
-
-</member>
-<member name="">
-
-</member>
-<member name="">
-
-</member>
-<member name="">
-
-</member>
-<member name="">
-
-</member>
-<member name="">
+<member name="T:PropertyDefinitions">
 
 </member>
 <member name="">
@@ -195,9 +75,6 @@
 
 </member>
 <member name="">
-
-</member>
-<member name="T:LanguageInterface.API">
 
 </member>
 <member name="">
@@ -218,11 +95,6 @@
 <member name="">
 
 </member>
-<member name="P:LanguageInterface.ImplementationInterface.ITokenProvider`1.ValueTrue">
-<summary>
-Values
-</summary>
-</member>
 <member name="">
 
 </member>
@@ -246,11 +118,6 @@ Values
 </member>
 <member name="">
 
-</member>
-<member name="M:LanguageInterface.ImplementationInterface.ITokenProvider`1.Variable(System.String,LanguageInterface.ImplementationInterface.ILType{`0})">
-<summary>
-VARIABLES
-</summary>
 </member>
 <member name="">
 
@@ -261,11 +128,6 @@ VARIABLES
 <member name="">
 
 </member>
-<member name="M:LanguageInterface.ImplementationInterface.ITokenProvider`1.TypeList(LanguageInterface.ImplementationInterface.ILType{`0})">
-<summary>
-TYPES
-</summary>
-</member>
 <member name="">
 
 </member>
@@ -280,11 +142,6 @@ TYPES
 </member>
 <member name="">
 
-</member>
-<member name="M:LanguageInterface.ImplementationInterface.ITokenProvider`1.StIfBlock(LanguageInterface.ImplementationInterface.ILRHV{`0},LanguageInterface.ImplementationInterface.ILStatement{`0})">
-<summary>
-GETSTATEMENT
-</summary>
 </member>
 <member name="">
 
@@ -385,7 +242,7 @@ GETSTATEMENT
 <member name="">
 
 </member>
-<member name="T:LanguageInterface.ImplementationInterface">
+<member name="T:PropertyLanguage">
 
 </member>
 </members>

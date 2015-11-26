@@ -1,9 +1,7 @@
 ﻿namespace LanguageInterface
-//open ImplementationInterface
+open ImplementationInterface
 
 module API =
-  0
-  (*
   type APIProvider<'L> (tokenProvider: ITokenProvider<'L>) =
     member internal this.TokenProvider : ITokenProvider<'L>= tokenProvider 
     member this.ModuleRoot = LModule(this,tokenProvider.ModuleRoot)
@@ -27,15 +25,16 @@ module API =
   
   and LValue<'L>(provider: APIProvider<'L>, ilValue: ILValue<'L>)=
     member this.Eval = new LRHV<'L>(provider, ilValue.Eval)
-  and LFieldAccess(provider: APIProvider<'L>, fAccess:ILFieldAccess<'L>)=
+  and LFieldAccess<'L>(provider: APIProvider<'L>, fAccess:ILFieldAccess<'L>)=
     member this.Eval = new LRHV<'L>(provider, fAccess.Eval)
+    //member this.SetTo= new LRH
   and LVariable<'L>(provider: APIProvider<'L>, ilVariable: ILVariable<'L>)=
     member this.Provider = provider
     member this.Eval = new LRHV<'L>(provider, ilVariable.Eval)
     member this.LType = new LType<'L>(provider,ilVariable.LType)
     member internal this.Variable = ilVariable
     member this.AccessField (field: LVariable<'L>) = 
-      LFieldAccess(provider, provider.TokenProvider.OoAccessField ilVariable.Eval field.Variable)
+      LFieldAccess<'L>(provider, provider.TokenProvider.OoAccessField ilVariable.Eval field.Variable)
     member this.SetTo (newValue: LRHV<'IL>) = new LStatement<'IL>(provider, provider.TokenProvider.StAssignment ilVariable newValue.IlRHV)
     member this.SetToV (newValue: LVariable<'IL>) = new LStatement<'IL>(provider, provider.TokenProvider.StAssignment ilVariable newValue.Eval.IlRHV)
 
@@ -53,7 +52,7 @@ module API =
     member this.Description = description
     member this.Parameters = parameters
 //  and LClassDecl<'L> (provider: APIProvider<'L>)=
-  *)
+  
     
     (*
 

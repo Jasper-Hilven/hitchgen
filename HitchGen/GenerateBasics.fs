@@ -1,7 +1,7 @@
 ﻿module GenerateBasics
 
 open Controllers
-open JAPI
+open JavaImplementation.JAPI
 open LanguageInterface.API
 open LanguageInterface.ImplementationInterface
 
@@ -28,7 +28,7 @@ type LVariable<'L> with
 
 type LType<'L> with
   member this.GetConstructorFieldInitializations(fieldsToInitialize: LVariable<'L> list, constructorType) =
-    let content = fieldsToInitialize |> List.map (fun (o : LVariable<'L>)-> o.AsField.SetTo(o.Eval))
+    //let content = fieldsToInitialize |> List.map (fun (o : LVariable<'L>)-> o.AsField.SetTo(o.Eval))
     0
   //GetConstructorDeclaration(constructorType,fieldsToInitialize,content)
   (*

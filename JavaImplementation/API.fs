@@ -1,5 +1,5 @@
 ﻿namespace JavaImplementation
-open JAST
+open JavaImplementation.AST
 open LanguageInterface.ImplementationInterface
 
 module JAPI =
@@ -37,7 +37,7 @@ module JAPI =
       member this.StReturnVoid = ReturnStatementVoid :> ILStatement<ILJava>
       member this.StForeach jIterator jCollection jContent = Foreach(jIterator :?>JVariable,jCollection :?>JRightHandValue,jContent :?> JStatement) :> ILStatement<ILJava>
       
-      member this.OoAccessField jRHV jField = AccessField(jRHV :?> JRightHandValue, jField :?> JVariable) :> ILFieldAccess<ILJava>
+      member this.OoAccessField jRHV jField = JAccessField(jRHV :?> JRightHandValue, jField :?> JVariable) :> ILFieldAccess<ILJava>
       member this.OoConstructorCall jType jParameters = ConstrCall(jType :?> JType, jParameters |> List.map (fun o -> o :?> JRightHandValue)) :> ILRHV<ILJava>
       member this.OoThis = JVariable("this",JType.Void) :> ILVariable<ILJava>
       member this.OoMethodCall (jObject:ILRHV<ILJava>) (jMethod:ILVariable<ILJava>) (jParameters:ILRHV<ILJava> list)= 
@@ -46,6 +46,7 @@ module JAPI =
       
       member this.ClMethodDecl (decl: ILVariable<ILJava>) (jParams: ILVariable<ILJava> list) (jStatements: ILStatement<ILJava>) =
         let declV = decl :?> JVariable
+
         new JMethod(declV.Name ,declV.JType ,jParams|> List.map (fun o -> o :?> JVariable),jStatements :?> JStatement) :> ILMethod<ILJava>
       member this.ClConstructorDecl (jType : ILType<ILJava>) (jParams: ILVariable<ILJava> list) (jStatements: ILStatement<ILJava>) = 
         new JConstructor(jType :?> JType, jParams|> List.map (fun o -> o :?> JVariable), jStatements :?> JStatement) :> ILConstructor<ILJava>
