@@ -52,11 +52,13 @@ module ImplementationInterface =
     abstract member StIfBlock:ILRHV<'L> ->  ILStatement<'L> -> ILStatement<'L> 
     abstract member StIfElseBlock: ILRHV<'L> ->  ILStatement<'L> -> ILStatement<'L> -> ILStatement<'L> 
     abstract member StAssignment: ILVariable<'L> -> ILRHV<'L> -> ILStatement<'L>
+    abstract member StAssignmentF: ILFieldAccess<'L> -> ILRHV<'L> -> ILStatement<'L>
     abstract member StMultSt: ILStatement<'L> list -> ILStatement<'L>
     abstract member StDeclAssignVariable: ILVariable<'L> -> ILRHV<'L> -> ILStatement<'L>
     abstract member StReturn: ILRHV<'L> -> ILStatement<'L>
     abstract member StReturnVoid: ILStatement<'L>
     abstract member StForeach: ILVariable<'L> -> ILRHV<'L> -> ILStatement<'L> -> ILStatement<'L>
+    abstract member StEmpty: ILStatement<'L>
     //OO
     abstract member OoAccessField: ILRHV<'L>->ILVariable<'L>-> ILFieldAccess<'L>
     abstract member OoConstructorCall: ILType<'L> -> (ILRHV<'L> list) -> ILRHV<'L>

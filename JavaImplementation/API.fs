@@ -31,12 +31,13 @@ module JAPI =
       member this.StIfBlock condition statement = IfThenBlock(condition :?> JRightHandValue, statement :?> JStatement, EmptyStatement):> ILStatement<ILJava>
       member this.StIfElseBlock condition ifStatement elseStatement = IfThenBlock(condition :?> JRightHandValue, ifStatement :?> JStatement, elseStatement :?> JStatement):> ILStatement<ILJava> 
       member this.StAssignment jVariable jValue = VariableAssignment(jVariable :?> JVariable,jValue:?> JRightHandValue) :> ILStatement<ILJava>
+      member this.StAssignmentF jFieldAccess jValue = FieldAssignment(jFieldAccess :?> JAccessField,jValue:?> JRightHandValue) :> ILStatement<ILJava>
       member this.StMultSt statements = JStatement.MultipleStatement(statements |> List.map (fun o -> o :?> JStatement)) :> ILStatement<ILJava>
       member this.StDeclAssignVariable jVariable jValue = JStatement.DeclarationAssignment(jVariable :?> JVariable,jValue:?> JRightHandValue) :> ILStatement<ILJava>
       member this.StReturn jValue = ReturnStatement(jValue :?> JRightHandValue) :> ILStatement<ILJava>
       member this.StReturnVoid = ReturnStatementVoid :> ILStatement<ILJava>
       member this.StForeach jIterator jCollection jContent = Foreach(jIterator :?>JVariable,jCollection :?>JRightHandValue,jContent :?> JStatement) :> ILStatement<ILJava>
-      
+      member this.StEmpty = JStatement.EmptyStatement :> ILStatement<ILJava>
       member this.OoAccessField jRHV jField = JAccessField(jRHV :?> JRightHandValue, jField :?> JVariable) :> ILFieldAccess<ILJava>
       member this.OoConstructorCall jType jParameters = ConstrCall(jType :?> JType, jParameters |> List.map (fun o -> o :?> JRightHandValue)) :> ILRHV<ILJava>
       member this.OoThis = JVariable("this",JType.Void) :> ILVariable<ILJava>

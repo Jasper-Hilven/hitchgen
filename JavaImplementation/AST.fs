@@ -36,7 +36,7 @@ module AST =
   and JStatement = 
     | DeclarationAssignment of JVariable * JRightHandValue
     | VariableAssignment of JVariable * JRightHandValue
-    | FieldAssignment of JVariable * JRightHandValue
+    | FieldAssignment of JAccessField * JRightHandValue
     | MultipleStatement of (JStatement list)
     | IfThenBlock of JRightHandValue * JStatement * JStatement
     | RHVStatement of JRightHandValue

@@ -11,7 +11,7 @@ type UT = ILJava
 ///CONTROLLER
 
 type LController<'L>(controller: Controller,lApiProvider: APIProvider<'L> ) =
-  member private this.ApiProvider = lApiProvider
+  member this.ApiProvider = lApiProvider
   member this.Module = lApiProvider.ModuleRoot.Child("com").Child("jasperhilven").Child("controller")
   member this.LType = lApiProvider.LType controller.Name this.Module
   member this.Variable = this.LType.Variable
@@ -27,15 +27,14 @@ type LVariable<'L> with
 ///ILTYPE
 
 type LType<'L> with
-  member this.GetConstructorFieldInitializations(fieldsToInitialize: LVariable<'L> list, constructorType) =
-    //let content = fieldsToInitialize |> List.map (fun (o : LVariable<'L>)-> o.AsField.SetTo(o.Eval))
-    0
-  //GetConstructorDeclaration(constructorType,fieldsToInitialize,content)
-  (*
+  member this.GetConstructorFieldInitializations(fieldsToInitialize: LVariable<'L> list) = 
+    let singleAssignment field = this.provider.This.AccessField(field).SetTo(field)
+    let content = if fieldsToInitialize.Length.Equals(0) then this.provider.StEmpty else fieldsToInitialize |> List.map singleAssignment |> List.reduce (fun l r -> l.Append(r))
+    this.provider.CLConstDecl this fieldsToInitialize content
 
-let GetControllerOfClass(controller) = 
-  let constructorMethod = GetConstructorFieldInitializations(childVariables,controllerType)
-  let getters = childVariables |> List.map GetGetter
-  GetClass(controllerType,[constructorMethod],getters,childVariables)
+let GetControllerOfClass(controller: LController<'L>) = 
+  let constr = controller.LType.GetConstructorFieldInitializations controller.ChildVariables
+  let getters = controller.ChildVariables |> List.map (fun cV -> cV.Getter)
+  controller.ApiProvider.ClClass controller.LType [constr] getters controller.ChildVariables
 
-let controllerFiles = controllers |> List.map GetControllerOfClass *)
+(*let controllerFiles = controllers |> List.map GetControllerOfClass *)
