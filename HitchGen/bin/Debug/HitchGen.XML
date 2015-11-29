@@ -29,6 +29,9 @@
 <member name="">
 
 </member>
+<member name="">
+
+</member>
 <member name="T:GenerateBasics.LController`1">
 <summary>
 CONTROLLER
@@ -46,13 +49,13 @@ CONTROLLER
 <member name="">
 
 </member>
-<member name="">
-
-</member>
 <member name="T:GenerateBasics">
 
 </member>
 <member name="T:GenerateFactories">
+
+</member>
+<member name="">
 
 </member>
 <member name="">

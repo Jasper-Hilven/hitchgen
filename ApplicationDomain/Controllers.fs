@@ -1,4 +1,4 @@
-﻿module Controllers
+﻿module ControllerDefinitions
 
 type Controller =
 | SpaceShip
@@ -21,7 +21,7 @@ let controllersAndProperties =
   FuelController,"FuelController";
   AirController,"AirController";
   ElectroController,"ElectroController"] |> Map.ofList
-let controllers = controllersAndProperties |> Map.toList |> List.map fst 
+let GetActiveControllers() = controllersAndProperties |> Map.toList |> List.map fst 
 let controllerNames = controllersAndProperties
 let controllerHierarchy = Map.empty
                              .Add(SpaceShip,[PhysicsController;UIController;SystemController])

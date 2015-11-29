@@ -1,5 +1,5 @@
 ﻿module PropertyLanguage
-open Controllers
+open ControllerDefinitions
 type Prop =
 //Physics
 | Mass

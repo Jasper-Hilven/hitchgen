@@ -1,12 +1,9 @@
 ﻿module GenerateBasics
 
-open Controllers
+open ControllerDefinitions
 open JavaImplementation.JAPI
 open LanguageInterface.API
 open LanguageInterface.ImplementationInterface
-
-type UT = ILJava
-//let apiProvider = new APIProvider<ILJava>(new JProvider() );
 
 ///CONTROLLER
 
@@ -32,9 +29,10 @@ type LType<'L> with
     let content = if fieldsToInitialize.Length.Equals(0) then this.provider.StEmpty else fieldsToInitialize |> List.map singleAssignment |> List.reduce (fun l r -> l.Append(r))
     this.provider.CLConstDecl this fieldsToInitialize content
 
-let GetControllerOfClass(controller: LController<'L>) = 
+let private GetClassOfController(controller: LController<'L>) = 
   let constr = controller.LType.GetConstructorFieldInitializations controller.ChildVariables
   let getters = controller.ChildVariables |> List.map (fun cV -> cV.Getter)
   controller.ApiProvider.ClClass controller.LType [constr] getters controller.ChildVariables
+type LController<'L> with
+  member this.GenerateClass()  = GetClassOfController(this)
 
-(*let controllerFiles = controllers |> List.map GetControllerOfClass *)

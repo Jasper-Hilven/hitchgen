@@ -1,5 +1,5 @@
 ﻿module GenerateFactories
-open Controllers
+open ControllerDefinitions
 open GenerateBasics
 (*
 ///METHOD HEADERS

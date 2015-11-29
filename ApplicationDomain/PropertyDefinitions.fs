@@ -1,6 +1,6 @@
 ﻿module PropertyDefinitions
 open PropertyLanguage
-open Controllers
+open ControllerDefinitions
 
 let propertyValueDefinitions = 
   Map.empty.Add(
