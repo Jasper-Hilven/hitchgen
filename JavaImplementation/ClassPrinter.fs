@@ -9,7 +9,7 @@ module JClassPrinter =
       member this.ClassPath = classPath
       member this.ClassContent = classContent
       member this.ClassName = className
-  
+      member this.ClassExtension = ".java"
   
   type JClassPrinter() =
     let rec printTypeBoxed(jType:JType) = 

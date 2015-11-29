@@ -77,7 +77,7 @@ module ImplementationInterface =
     abstract member ClassPath: string
     abstract member ClassContent : string list
     abstract member ClassName: string
-  
+    abstract member ClassExtension: string
   type IClassPrinter<'L> = 
     abstract member PrintAllClasses: ILClass<'L> list -> string -> IClassResult list
 
