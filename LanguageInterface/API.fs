@@ -5,7 +5,8 @@ module API =
   type APIProvider<'L> (tokenProvider: ITokenProvider<'L>) =
     member internal this.TokenProvider : ITokenProvider<'L>= tokenProvider 
     member this.ModuleRoot = LModule(this,tokenProvider.ModuleRoot)
-    member this.LType (name:string) (lModule: LModule<'L>) = new LType<'L>(this,tokenProvider.TypeFree name lModule.ilModule)
+    member this.TType (name:string) (lModule: LModule<'L>) = new LType<'L>(this,tokenProvider.TypeFree name lModule.ilModule)
+    member this.TVoidType  = new LType<'L>(this,tokenProvider.TypeVoid)
     member this.CLConstDecl (lType: LType<'L>) (parameters: LVariable<'L> list) (statement: LStatement<'L>) = new LConstDecl<'L>(this,lType, parameters, statement)
     member this.ClMethodDeclV (declaration: LVariable<'L>) (parameters: LVariable<'L> list) (statement: LStatement<'L>)= new LMethodDecl<'L>(this, declaration, parameters, statement)
     member this.ClMethodDecl (name: string) (lType: LType<'L>) (parameters: LVariable<'L> list) (statement: LStatement<'L>)= 
@@ -20,13 +21,14 @@ module API =
   
   and LType<'L>(provider: APIProvider<'L>,ilType: ILType<'L>)=
     member internal this.ILType = ilType
+    member this.LModule = new LModule<'L>(this.provider, ilType.IlModule)
     member this.provider = provider
     member this.FieldName = 
       let name = provider.TokenProvider.Type2String(ilType)
       if name.Length.Equals(0) then "" else name.Substring(0,1).ToLower() + name.Substring(1)
     member this.Name = provider.TokenProvider.Type2String(ilType)
     member this.Variable:LVariable<'L> = new LVariable<'L>(provider, provider.TokenProvider.Variable this.FieldName ilType)
-  
+    member this.VariableWithName name = new LVariable<'L>(provider, provider.TokenProvider.Variable name ilType)
   and LValue<'L>(provider: APIProvider<'L>, ilValue: ILValue<'L>)=
     member this.Eval = new LRHV<'L>(provider, ilValue.Eval)
   and LFieldAccess<'L>(provider: APIProvider<'L>, fAccess:ILFieldAccess<'L>)=

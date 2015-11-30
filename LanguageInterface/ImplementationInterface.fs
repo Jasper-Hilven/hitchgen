@@ -9,7 +9,8 @@ module ImplementationInterface =
 
   
   
-  and ILType<'L> = interface end
+  and ILType<'L> = 
+    abstract member IlModule: ILModule<'L>
 
   and ILModule<'L> = interface end
 

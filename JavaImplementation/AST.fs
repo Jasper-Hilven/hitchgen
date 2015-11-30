@@ -17,7 +17,16 @@ module AST =
     | Map of JType*JType
     | Dedicated of string * JModule
     | Void
-    interface ILType<ILJava>
+    interface ILType<ILJava> with
+      member this.IlModule = 
+        match this with
+          | String -> JModule.Root :> ILModule<ILJava>
+          | Bool -> JModule.Root :> ILModule<ILJava>
+          | Int -> JModule.Root :> ILModule<ILJava>
+          | List t -> raise (System.NotImplementedException())
+          | Map(k,v) -> raise (System.NotImplementedException())
+          | Dedicated(n,m) -> m :> ILModule<ILJava>
+          | Void -> JModule.Root :> ILModule<ILJava>
   
   
   type JVariable(name:string, jVType:JType) = 

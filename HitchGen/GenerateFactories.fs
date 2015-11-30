@@ -1,15 +1,13 @@
 ﻿module GenerateFactories
 open ControllerDefinitions
 open GenerateBasics
-(*
+
 ///METHOD HEADERS
-let GetControllerFactoryType(controller)= GetFreeType(GetControllerName(controller) + "Factory", GetNameSpaceOfController(controller) + "factories")
-let GetControllerFactoryVariable(controller)= GetVariableOfType(GetControllerFactoryType(controller))
-let constructMethodName(controller) = "Construct" + GetControllerVariable(controller).JType.GetStringRep()
-let constructMethodVariable(controller) = GetVariable(constructMethodName(controller),GetTypeOfController(controller))
-let destructMethodName(controller) = "Destruct" + GetControllerVariable(controller).JType.GetStringRep()
-let destructMethodVariable(controller) = GetVariable(destructMethodName(controller),GetVoidType())
-let childrenCollectionVariable(controller) = GetVariable("generated" + GetControllerName(controller)+ "s",GetListTypeOf(GetTypeOfController(controller)))
+
+let GetControllerFactoryType(controller : LController<'L>)= controller.ApiProvider.TType (controller.LType.Name + "Factory") (controller.LType.LModule.Child "Factories")
+let constructMethodVariable(controller: LController<'L>) = controller.LType.VariableWithName("Construct" + controller.Variable.LType.Name)
+let destructMethodVariable(controller: LController<'L>) =   controller.ApiProvider.TVoidType.VariableWithName("Destruct" + controller.Variable.LType.Name)
+(*let childrenCollectionVariable(controller) = GetVariable("generated" + GetControllerName(controller)+ "s",GetListTypeOf(GetTypeOfController(controller)))
 let isSavedVariable() = GetVariable("savedChildren",GetBooleanType())
 let savedMapping(controller) = GetVariable("savedMapping",GetMapTypeOf(GetTypeOfController(controller),GetIntType()))
 let GetIdMethodVariable(controller) = GetVariable("GetId" + GetControllerName(controller),GetIntType())

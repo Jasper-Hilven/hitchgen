@@ -1,18 +1,16 @@
 ﻿namespace JavaImplementation
-module ImportProvider = 0
+open AST
+open JBasics
+module ImportProvider = 
 
-(*open JAST
-let rec GetImports(jType: JType) : string list = 
-    match jType with
-      | String -> []
-      | Bool -> []
-      | Int -> []
-      | Void -> []
-      | List iType -> "java.util.ArrayList"::GetImports(iType)
-      | Map(k,v)-> "java.util.HashMap"::GetImports(k) @ GetImports(v)
-      | Dedicated(name, import) -> 
-        match import with
-            | Root -> ""
-            | Child (m,n) -> 
 
-            *)
+  let rec GetTypeImports (jType: JType) : Set<JModule>= 
+      match jType with
+        | String -> Set.empty
+        | Bool -> Set.empty
+        | Int -> Set.empty
+        | Void -> Set.empty
+        | List iType -> Set.add AListPath (GetTypeImports iType)
+        | Map(k,v)-> Set.union (GetTypeImports k) (GetTypeImports v) |> Set.add HMapPath
+        | Dedicated(name, import) -> Set.empty.Add(import)
+    

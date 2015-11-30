@@ -49,6 +49,7 @@
   <ItemGroup>
     <None Include="App.config" />
     <Compile Include="AST.fs" />
+    <Compile Include="JBasics.fs" />
     <Compile Include="ImportProvider.fs" />
     <Compile Include="ClassPrinter.fs" />
     <Compile Include="API.fs" />

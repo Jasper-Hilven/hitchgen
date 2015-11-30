@@ -52,6 +52,17 @@ CONTROLLER
 <member name="T:GenerateBasics">
 
 </member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="M:GenerateFactories.GetControllerFactoryType``1(GenerateBasics.LController{``0})">
+<summary>
+METHOD HEADERS
+</summary>
+</member>
 <member name="T:GenerateFactories">
 
 </member>
