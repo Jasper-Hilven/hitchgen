@@ -1,7 +1,7 @@
 ﻿namespace JavaImplementation
 open JavaImplementation.AST
 open LanguageInterface.ImplementationInterface
-
+open ImportProvider
 module JClassPrinter =
 
   type JClassResult(classPath, classContent, className: string) = 
@@ -70,10 +70,7 @@ module JClassPrinter =
       | DeclarationAssignment(v,rhv) -> [printVariable(v)+ " = " + printRHV(rhv) + ";"]
       | VariableAssignment(v,rhv) -> [v.Name + " = " + printRHV(rhv) + ";"]
       | JStatement.FieldAssignment(v,rhv) -> [printAccessField(v) + "=" + printRHV(rhv)+ ";"]
-      | MultipleStatement sm -> if sm.Length.Equals(0) 
-                                then [] 
-                                else sm |> List.map (fun a-> printStatement(a))
-                                        |> List.reduce (fun a b -> a @ b)
+      | MultipleStatement sm -> sm |> List.map printStatement|> List.concat
       | IfThenBlock(c,t,e) -> ["if(" + printRHV(c) + "){"]@ indent2Lines(printStatement(t))@["}";"else{"] @ indent2Lines(printStatement(e)) @ ["}"]
       | RHVStatement rhv -> [printRHV( rhv) + ";"]
       | EmptyStatement -> [";"]
@@ -93,31 +90,27 @@ module JClassPrinter =
       let declaration = "public " + printTypeBoxed(jConstructor.JType) + "(" + concatVariables + "){"
       let indentedStatements = indent2Lines(printStatement(jConstructor.Statements)) 
       let ending = ["}"]
-      declaration:: indentedStatements @  ending
+      declaration:: indentedStatements @ ending
   
     let GetClassName(jClass: JClass) =   printTypeBoxed(jClass.JType) + ".java"
   
+    let getImportLines (jClass: JClass)= (GetClassImports jClass) |> Set.map (fun m -> "import " + m.Print + ";") |> Set.toList
+    
     let printClass(jClass: JClass) = 
-      let classDefLine =  "public class " + printTypeBoxed(jClass.JType) + "{"
+      let importLines = getImportLines jClass
+      let classDefLine =  ["public class " + printTypeBoxed(jClass.JType) + "{"]
       let printField(field : JVariable)= printVariable(field) + ";"
-      let fieldDeclarations = 
-        if jClass.Fields.Length.Equals(0) then [] else List.map printField jClass.Fields
-        |> indent2Lines
+      let fieldDeclarations = if jClass.Fields.Length.Equals(0) then [] else List.map printField jClass.Fields |> indent2Lines
       let constructorsPrinted = jClass.Constructors |> List.map (fun m -> printConstructor(m))
-      let constructorLines = 
-        if(constructorsPrinted.Length = 0) then [] else constructorsPrinted |> List.reduce(fun a b -> a @ [""] @ b)
-        |> indent2Lines
+      let constructorLines = if(constructorsPrinted.Length = 0) then [] else constructorsPrinted |> List.reduce(fun a b -> a @ [""] @ b) |> indent2Lines
       let methodsPrinted = jClass.Methods |> List.map(fun m -> printMethod(m))
-      let methodsLines = 
-        if(jClass.Methods.Length = 0) then [] else methodsPrinted |> List.reduce(fun a b -> a @ [""] @ b)
-        |> indent2Lines
+      let methodsLines = if(jClass.Methods.Length = 0) then [] else methodsPrinted |> List.reduce(fun a b -> a @ [""] @ b) |> indent2Lines
       let classClosing = ["}"]
-      let fullDescription = 
-        let appendLinesIfNotEmpty(lines:string list) = if lines.Length.Equals(0) then [] else lines @ doubleEmptyLine
-        classDefLine::doubleEmptyLine @ appendLinesIfNotEmpty(fieldDeclarations) @ appendLinesIfNotEmpty(constructorLines) @ appendLinesIfNotEmpty(methodsLines)@classClosing
-      fullDescription
+      let appendLinesIfNotEmpty(lines:string list) = if lines.Length.Equals(0) then [] else lines @ doubleEmptyLine
+      let printPieces = [importLines;classDefLine;fieldDeclarations;constructorLines;methodsLines]
+      printPieces |> List.map appendLinesIfNotEmpty |> List.concat
   
-    interface IClassPrinter<ILJava> with 
+    interface IClassPrinter<ILJava> with
       member this.PrintAllClasses (classes: ILClass<ILJava> list)  (path: string) = 
         classes |> List.map (fun c-> let cCast = c :?> JClass in JClassResult(path , printClass(cCast),printType(cCast.JType)) :> IClassResult) 
   

@@ -4,7 +4,7 @@ open LanguageInterface.ImplementationInterface
 
 module JAPI =
 
-  exception StringRepNotExistingExisting of string
+  exception StringRepNotExistingException of string
   
   
   type JProvider() = 
@@ -20,7 +20,7 @@ module JAPI =
       member this.Type2String (t:ILType<ILJava>) : string=
         match (t :?> JType) with
           | JType.Dedicated (n,m) -> n
-          | _ -> raise(StringRepNotExistingExisting("only allowed for dedicated types"))
+          | _ -> raise(StringRepNotExistingException("only allowed for dedicated types"))
       member this.ValueTrue= JValue.JTrue :> ILValue<ILJava>
       member this.ValueFalse= JValue.JFalse :> ILValue<ILJava>
       member this.ValueString sVal = JValue.JString(sVal) :> ILValue<ILJava>

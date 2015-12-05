@@ -8,7 +8,13 @@ module AST =
     | Root
     | Child of JModule * string
     interface ILModule<ILJava>
-  
+    member this.Print = 
+      match this with
+        | Root -> ""
+        | Child(p,s) -> 
+          match p with 
+            |Root -> s
+            |Child(_,_) -> p.Print + "." + s
   type JType = 
     | String
     | Bool
@@ -27,7 +33,7 @@ module AST =
           | Map(k,v) -> raise (System.NotImplementedException())
           | Dedicated(n,m) -> m :> ILModule<ILJava>
           | Void -> JModule.Root :> ILModule<ILJava>
-  
+    
   
   type JVariable(name:string, jVType:JType) = 
     member public this.Name = name
@@ -37,7 +43,8 @@ module AST =
       member this.Name = name
       member this.LType = this.JType :> ILType<ILJava>
   and JAccessField(on: JRightHandValue, field: JVariable) = 
-    
+    member this.JOn = on
+    member this.JField = field
     interface ILFieldAccess<ILJava> with
       member this.On = on :> ILRHV<ILJava>
       member this.Field = field :> ILVariable<ILJava>
