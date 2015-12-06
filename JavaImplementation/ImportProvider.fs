@@ -67,6 +67,5 @@ module ImportProvider =
     let methodImports = jClass.Methods |> List.map getMethodImports
     let constructorImports = jClass.Constructors |> List.map getConstructorImports
     let allImports = (Set.empty::fieldImports) @ methodImports @ constructorImports |> Set.unionMany
-    let compareClassToModule = (fun m -> jClass.JType |> getTypeImports |> m.Equals |> not)
-    let notClassItself = allImports |> Set.filter compareClassToModule
+    let notClassItself = allImports |> Set.filter (fun m -> jClass.JType |> m.Equals |> not)
     notClassItself |> Set.map getImportFromType |> Set.unionMany
