@@ -25,6 +25,5 @@ let propertyValueDefinitions =
                                                           Prev(Value(Prop.Rotation)))));
    Prop.RotationSpeed, PropertyValueDef(InitialOrGiven(UnitQuaternion), TimeUpdateFunction(Oper(Mult(Prev(Value(Prop.RotationSpeed)),Value(RotationImpulses)))));
    Prop.RotationImpulses, PropertyValueDef(Initial(BeginValue.UnitQuaternion),TimeUpdateFunction(Prev(Value(Prop.RotationImpulses))))])
-   .Add(Controller.EngineController,
-   [])
+   .Add(Controller.EngineController, [])
 
