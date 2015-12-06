@@ -92,7 +92,7 @@ module JClassPrinter =
       let ending = ["}"]
       declaration:: indentedStatements @ ending
   
-    let GetClassName(jClass: JClass) =   printTypeBoxed(jClass.JType) + ".java"
+    let getClassName(jClass: JClass) =   printTypeBoxed(jClass.JType) + ".java"
   
     let getImportLines (jClass: JClass)= (GetClassImports jClass) |> Set.map (fun m -> "import " + m.Print + ";") |> Set.toList
     
@@ -112,6 +112,4 @@ module JClassPrinter =
   
     interface IClassPrinter<ILJava> with
       member this.PrintAllClasses (classes: ILClass<ILJava> list)  (path: string) = 
-        classes |> List.map (fun c-> let cCast = c :?> JClass in JClassResult(path , printClass(cCast),printType(cCast.JType)) :> IClassResult) 
-  
-  
+        classes |> List.map (fun c-> let cCast = c :?> JClass in JClassResult(path , printClass(cCast),printType(cCast.JType)) :> IClassResult)
