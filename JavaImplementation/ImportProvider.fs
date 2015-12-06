@@ -57,7 +57,6 @@ module ImportProvider =
     let importsParameters = jMethod.Parameters |> List.map getVariableImports |> Set.unionMany
     let importsStatements = getStatementImports jMethod.Statements 
     (getTypeImports jMethod.JType) + importsParameters + importsStatements
-  
   let private getConstructorImports(jConstructor: JConstructor)= 
     let importsParameters = jConstructor.Parameters |> List.map getVariableImports |> Set.unionMany
     let importsStatements = getStatementImports jConstructor.Statements 
