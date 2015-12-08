@@ -16,7 +16,7 @@ module JavaImplementationTest =
   type ASTTest() =
       
     [<Test>]
-    member x.TestIfSameTypesAreEqual() = 
+    member x.``Same types are equal``() = 
       let firstType = testType()
       let firstTypeClone = JType.Dedicated(TData.simpleName(), TData.testModule())
       let secondType = JType.Dedicated("Second", TData.testModule())
@@ -25,6 +25,6 @@ module JavaImplementationTest =
   [<TestFixture>]
   type ImportsTest() =
     [<Test>]
-    member x.TestIfClassItselfNotImported() =
-      let simpleClass = new JClass(TData.testType(), [], [], [TData.testDedicatedVariable()])
-      testGetClassImports(simpleClass).Count |> should equal 0
+    member x.``Class itself is not imported``() =
+      let classThatRefersToNothingButItself = new JClass(TData.testType(), [], [], [TData.testDedicatedVariable()])
+      testGetClassImports(classThatRefersToNothingButItself).Count |> should equal 0

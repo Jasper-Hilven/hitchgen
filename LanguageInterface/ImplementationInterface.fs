@@ -81,5 +81,5 @@ module ImplementationInterface =
     abstract member ClassExtension: string
   type IClassPrinter<'L> = 
     abstract member PrintAllClasses: ILClass<'L> list -> string -> IClassResult list
-
+    abstract member PrepareProject: string -> unit
   

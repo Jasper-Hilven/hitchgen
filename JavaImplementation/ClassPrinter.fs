@@ -53,7 +53,7 @@ module JClassPrinter =
       let rHVsListed =  parameters |> List.map (fun o -> printRHV(o))
       if rHVsListed.Length.Equals(0) then "" else rHVsListed |> List.reduce (fun a b -> a + ", " + b)
   
-    and printAccessField(af: JAccessField)= printRHV((af :> ILFieldAccess<ILJava>).On:?> JRightHandValue) + "." + printVariable((af :> ILFieldAccess<ILJava>).Field :?> JVariable) 
+    and printAccessField(af: JAccessField)= printRHV((af :> ILFieldAccess<ILJava>).On:?> JRightHandValue) + "." + ((af :> ILFieldAccess<ILJava>).Field :?> JVariable).Name 
     and printRHV(rhv: JRightHandValue) = 
       match rhv with
         | Eval v-> v.Name
@@ -95,8 +95,12 @@ module JClassPrinter =
     let getClassName(jClass: JClass) =   printTypeBoxed(jClass.JType) + ".java"
   
     let getImportLines (jClass: JClass)= (GetClassImports jClass) |> Set.map (fun m -> "import " + m.Print + ";") |> Set.toList
-    
+    let getPackageLine (jClass: JClass) = 
+      match jClass.JType with 
+        |JType.Dedicated(name,jModule) -> "package " + jModule.Print  + ";"
+        | _ -> raise(new System.Exception("Only classes of dedicated types allowed"))
     let printClass(jClass: JClass) = 
+      let packageLine = [getPackageLine jClass]
       let importLines = getImportLines jClass
       let classDefLine =  ["public class " + printTypeBoxed(jClass.JType) + "{"]
       let printField(field : JVariable)= printVariable(field) + ";"
@@ -107,9 +111,15 @@ module JClassPrinter =
       let methodsLines = if(jClass.Methods.Length = 0) then [] else methodsPrinted |> List.reduce(fun a b -> a @ [""] @ b) |> indent2Lines
       let classClosing = ["}"]
       let appendLinesIfNotEmpty(lines:string list) = if lines.Length.Equals(0) then [] else lines @ doubleEmptyLine
-      let printPieces = [importLines;classDefLine;fieldDeclarations;constructorLines;methodsLines]
+      let printPieces = [packageLine;importLines;classDefLine;fieldDeclarations;constructorLines;methodsLines;classClosing]
       printPieces |> List.map appendLinesIfNotEmpty |> List.concat
   
     interface IClassPrinter<ILJava> with
       member this.PrintAllClasses (classes: ILClass<ILJava> list)  (path: string) = 
-        classes |> List.map (fun c-> let cCast = c :?> JClass in JClassResult(path , printClass(cCast),printType(cCast.JType)) :> IClassResult)
+        let gradlePath = "src\\main\\java\\"
+        classes |> List.map (fun c-> let cCast = c :?> JClass in JClassResult(path + gradlePath, printClass(cCast),printType(cCast.JType)) :> IClassResult)
+      member this.PrepareProject path =
+        let content = "apply plugin: 'java'"
+        let fileName = "build.gradle"
+        use fs = System.IO.File.CreateText (path + fileName)
+        fs.WriteLine content

@@ -23,8 +23,11 @@ let main argv =
   
   IO.Directory.Delete(directoryInfo.FullName,true);
   
-  IO.Directory.CreateDirectory("GeneratedCode") |> ignore
-  classesPrinted |> List.iter (fun (cP) -> 
-    use fs = IO.File.CreateText("GeneratedCode\\" + cP.ClassPath + cP.ClassName + cP.ClassExtension)
+  IO.Directory.CreateDirectory(directoryInfo.Name) |> ignore
+  classesPrinted |> List.iter (fun (cP) ->
+    let containingFolder =  directoryInfo.Name + "\\" + cP.ClassPath
+    IO.Directory.CreateDirectory containingFolder |> ignore
+    use fs = IO.File.CreateText(containingFolder + cP.ClassName + cP.ClassExtension)
     cP.ClassContent |> List.iter (fun l -> fs.WriteLine(l)))
+  classPrinter.PrepareProject (directoryInfo.FullName + "\\")
   0
